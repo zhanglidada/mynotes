@@ -1,10 +1,10 @@
-# ACID
+## ACID
 - 原子性
 - 一致性
 - 隔离性
 - 持久性
 
-# 隔离级别
+## 隔离级别
 1.读未提交--脏读
     B事务update，但是rollback，A事务在B回滚之前读取数据，读到了脏数据
 
@@ -29,10 +29,10 @@
     B开事务update
     A可以读但是不可以写，因为被锁住了
 
-# 查看数据库默认的隔离级别 select @@tx_isolation
-# 设置数据库隔离级别 set tx_isolation='read-uncommitted' 读未提交
+查看数据库默认的隔离级别 select @@tx_isolation
+设置数据库隔离级别 set tx_isolation='read-uncommitted' 读未提交
 
-# InnoDB锁的原理
+##InnoDB锁的原理
     协调并发访问某一个资源
 1.共享锁
     s锁，读锁
@@ -83,7 +83,8 @@
 8.记录锁
     锁精准的加到某一行上
 
-# 隔离级别和锁之间的关系
+## 隔离级别和锁之间的关系
+
 ## 脏读的解决
     用排他锁可以解决
 ## 不可重复读
