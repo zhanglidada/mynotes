@@ -8,6 +8,7 @@
 | c | Continue的简写，继续执行被调试程序，直至下一个断点或程序结束。 | (gdb) c |
 | b <行号> <br> b<文件名：行号> <br> b <函数名称> <br> b *<函数名称> <br> b *<代码地址> <br> d [编号] | b: Breakpoint的简写，设置断点。两可以使用“行号”“函数名称”“执行地址”等方式指定断点位置。<br> 其中在函数名称前面加“*”符号表示将断点设置在“由编译器生成的prolog代码处”。如果不了解汇编，可以不予理会此用法。<br> d : Delete breakpoint的简写，删除指定编号的某个断点，或删除所有断点。断点编号从1开始递增。比如 d n，删除第n个断点。<br> clear n：表示清除第n行的断点。注意和d n的区别。 | (gdb) b 8 <br> (gdb) b main.cpp:12 <br> (gdb) b main <br> (gdb) b * main <br> (gdb) b *0x804835c <br> (gdb) d <br> (gdb) d 1 |
 | s , n | s: 执行一行源程序代码，如果此行代码中有函数调用，则进入该函数；<br> n: 执行一行源程序代码，此行代码中的函数调用也一并执行。<br> s 相当于其它调试器中的“Step Into (单步跟踪进入)”；<br> n 相当于其它调试器中的“Step Over (单步跟踪)”。<br> <font color=#98549>这两个命令必须在有源代码调试信息的情况下才可以使用（GCC编译时使用“-g”参数）。</font>| (gdb) s <br> (gdb) n |
+|finish| 结束内部函数的调用 | (gdb) finish |
 | si , ni | 	si命令类似于s命令，ni命令类似于n命令。所不同的是，这两个命令（si/ni）所针对的是汇编指令，而s/n针对的是源代码。 | (gdb) si <br> (gdb) ni |
 | start | 开始执行程序,在main函数的第一条语句前面停下来 |  |
 | watch | 监视变量值的变化， 当设置的监视变量值发生变化时会提示 | watch j <br> watch i |
