@@ -1,4 +1,4 @@
-#ubuntu下面的一些环境配置问题
+[[ubuntu下面的一些环境配置问题]]
 ##1.python环境问题：
 ###1.1.ubuntu的默认python环境问题：
 其实在ubuntu18中默认安装了python2.7和python3.6的环境，但是默认使用的是python2的环境，所以需要进行如下设置：
@@ -69,8 +69,8 @@ Cython ipython
 ```
 2）可以在caffe/python文件夹下面的查看依赖安装方式：
 ```
-cd /home/caffe/python #这里进入caffe下的python目录
-for req in $(cat requirements.txt); do pip3 install $req; done #这里检查要求的依赖文件命进行安装
+cd /home/caffe/python [[这里进入caffe下的python目录]]
+for req in $(cat requirements.txt); do pip3 install $req; done [[这里检查要求的依赖文件命进行安装]]
 ```
 3）关于pip安装超时崩溃时可以设置超时等待时间：
 `python -m pip --default-timeout=100 install -U pip`
@@ -80,9 +80,9 @@ for req in $(cat requirements.txt); do pip3 install $req; done #这里检查要�
 ###3.3 caffe编译依赖
 注意，caffe在编译的时候需要glog依赖，但是goole 的glog千万不要下载源码编译，因为它会产生动态依赖库和静态依赖库的混淆，直接apt下载最好！
 ```
-#安装
+[[安装]]
 sudo apt-get install libgoogle-glog-dev
-#卸载
+[[卸载]]
 sudo apt-get remove libgoogle-glog-dev
 ```
 如果是源码安装的化，一般会在以下位置有头文件和依赖库

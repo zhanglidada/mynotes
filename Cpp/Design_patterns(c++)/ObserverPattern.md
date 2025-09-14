@@ -1,4 +1,4 @@
-#c++观察者模式
+[[c]]++观察者模式
 ##一、简介
 ###1.什么是观察者模式：
 观察者模式算是应用最多，使用最广的模式之一。 `Observer`的一个实例 `Model/View/Control（MVC）` 结构在系统开发架构设计中有着很重要的地位和意义， MVC实现了业务逻辑和表示层的解耦。Observer 模式要解决的问题为： 建立一个一（Subject）对多（Observer） 的依赖关系， 并且做到当“一” 变化的时候， 依赖这个“一”的多也能够同步改变。
@@ -44,9 +44,9 @@ ConcreteObserver（具体观察者）
 
 示例1：
 ```
-#include <iostream>
-#include <list>
-#include <memory>
+[[include]] <iostream>
+[[include]] <list>
+[[include]] <memory>
 using namespace std;
 
 // 定义observer和subkect的虚基类

@@ -1,4 +1,4 @@
-#C++模板类和模板函数详解
+[[C]]++模板类和模板函数详解
 ![14](/assets/14.png)
 ##简介：
 模板是C++支持**参数化多态的工具**，使用模板可以为类或者函数声明一种**一般模式**，<font color=red>使得类中的某些数据成员或者成员函数的参数、返回值取得任意类型。</font>
@@ -84,7 +84,7 @@ class Grid {
 ```
 同样，也可以为类型模板参数指定默认值： 
 ```
-#include <iostream> 
+[[include]] <iostream> 
 using std::vector; 
 template<typename T,typename Contianer=vector<T> > //注意空格 
 class Grid 
@@ -123,8 +123,8 @@ template<class T>void A<T>::g(T a, T b){
 
 <mark><font color=#bb3d00>Template_head.hpp</font></mark>
 ```
-#ifndef TEMP_HEAD
-#define TEMP_HEAD
+[[ifndef]] TEMP_HEAD
+[[define]] TEMP_HEAD
 
 template<class T> class A {
  public:
@@ -133,14 +133,14 @@ template<class T> class A {
  private:
   int number;
 };
-#endif
+[[endif]]
 ```
 这里，我们指定模板的形参类型为int，同时给成员函数传递一个int，一个double实参：
 <mark><font color=#bb3d00>Template1.cc</font></mark>
 ```
-#include<iostream>
-#include<string>
-#include"../include/Template_head.hpp"
+[[include]]<iostream>
+[[include]]<string>
+[[include]]"../include/Template_head.hpp"
 template<class T>
 A <T>::A() {
   this->number = 10;
@@ -152,7 +152,7 @@ T A<T>::g(T a,T b) {
 int main() {
   A<int> a;
   //因为对类模板的形参类型已经指定为int，所以运行时将传递给成员函数的实参进行强制类型转换
-  std::cout << a.g(2, 3.2) << std::endl;;
+  std==cout << a.g(2, 3.2) << std==endl;;
   return 0;
 }
 ```
@@ -239,8 +239,8 @@ A<3> m;
 ####非类型形参demo1：
 <mark><font color=#4d0000>TemplateDemo.hpp</font></mark>
 ```
-#ifndef TEMP_DEMO_HEAD
-#define TEMP_DEMO_HEAD
+[[ifndef]] TEMP_DEMO_HEAD
+[[define]] TEMP_DEMO_HEAD
 template<class T,int MAXSIZE>
 class Stack {
  public:
@@ -257,32 +257,32 @@ class Stack {
   T elems[MAXSIZE];        //包含元素的数组
   int numElems;            //元素的当前总个数
 };
-#endif
+[[endif]]
 ```
 
 <mark><font color=#4d0000>TemplateDemo.cc</font></mark>
 ```
-#include<iostream>
-#include<string>
-#include<cstdlib>
-#include"../include/TemplateDemo.hpp"
+[[include]]<iostream>
+[[include]]<string>
+[[include]]<cstdlib>
+[[include]]"../include/TemplateDemo.hpp"
 template<class T,int MAXSIZE> Stack<T,MAXSIZE>::Stack(){//初始时栈不含任何元素
     numElems = 0;
 }
 template<class T,int MAXSIZE>void Stack<T,MAXSIZE>::push(T const &elem){
     if(numElems == MAXSIZE)
-        throw std::out_of_range("Stack<>::push(): stack is full");
+        throw std==out_of_range("Stack<>==push(): stack is full");
     elems[numElems] = elem;//附加元素
     ++numElems;//元素个数增加
 }
 template<class T,int MAXSIZE>void Stack<T,MAXSIZE>::pop(){
     if(numElems <= 0)
-        throw std::out_of_range("Stack<>::pop(): empty stack");
+        throw std==out_of_range("Stack<>==pop(): empty stack");
     --numElems;//元素个数增加
 }
 template<class T,int MAXSIZE>T Stack<T,MAXSIZE>::top() const{
     if(numElems <= 0)
-        throw std::out_of_range("Stack<>::top(): empty stack");
+        throw std==out_of_range("Stack<>==top(): empty stack");
     return elems[numElems-1];//返回最后一个元素
 }
 template<class T,int MAXSIZE>bool Stack<T,MAXSIZE>::empty() const{
@@ -299,18 +299,18 @@ int main(){
 
         // 使用可存储20个int元素的栈
         int20Stack.push(7);
-        std::cout << int20Stack.top() << std::endl;    //7
+        std==cout << int20Stack.top() << std==endl;    //7
         int20Stack.pop();
 
         // 使用可存储40个string的栈
         stringStack.push("hello");
-        std::cout << stringStack.top() << std::endl;    //hello
+        std==cout << stringStack.top() << std==endl;    //hello
         stringStack.pop();
         stringStack.pop();    //Exception: Stack<>::pop<>: empty stack
         return 0;
 
     }catch (std::exception const &ex){
-        std::cerr << "Exception: " <<ex.what() <<std::endl;
+        std==cerr << "Exception: " <<ex.what() <<std==endl;
         return EXIT_FAILURE;                    //退出且有ERROR标记
     }
     return 0;
@@ -320,19 +320,19 @@ int main(){
 ####非类型形参demo2：
 <mark><font color=#460046>TemplateDemo2.hpp</font></mark>
 ```
-#ifndef TEMP_DEMO2_HEAD
-#define TEMP_DEMO2_HEAD
+[[ifndef]] TEMP_DEMO2_HEAD
+[[define]] TEMP_DEMO2_HEAD
 template<typename T>class CompareDemo{
 public:
     CompareDemo();
     int compare(const T&,const T&) const;
 };
-#endif
+[[endif]]
 ```
 <mark><font color=#460046>TemplateDemo2.cc</font></mark>
 ```
-#include<iostream>
-#include"../include/TemplateDemo2.hpp"
+[[include]]<iostream>
+[[include]]"../include/TemplateDemo2.hpp"
 //typename的用法类似于class
 template<typename T>CompareDemo<T>::CompareDemo(){
     //nothing to do.
@@ -347,7 +347,7 @@ template<typename T>int CompareDemo<T>::compare(const T &a,const T &b) const{
 }
 int main(){
     CompareDemo<double> cd;
-    std::cout<<cd.compare(2,3)<<std::endl;
+    std==cout<<cd.compare(2,3)<<std==endl;
     return 0;
 }
 ```
@@ -356,7 +356,7 @@ int main(){
 ####非类型形参demo3：
 <mark><font color=#4d0000>TemplateDemo3.cc</font></mark>
 ```
-#include<iostream>
+[[include]]<iostream>
 using namespace std;
 //定义了一个函数模板，返回值为const类型，不可被修改
 template<typename T>const T& Max(const T &a,const T &b){
@@ -400,11 +400,11 @@ int main() {
 ```
 我们定义了一个模板类，并将其作为参数传入另一个参数为模板的模板类中。但是如果我们传入一个容器，会产生一些小问题：
 ```
-template_template_test<std::string, std::list> mylist1;  // 这里编译会产生错误
+template_template_test<std==string, std==list> mylist1;  // 这里编译会产生错误
 ```
 如果我们将`string`和`list`传入到类`template_template_test`中，然后就会定义一个`list<string>`的变量，虽然这样看起来是可以的，但是因为list容器实质上是有第二参数的，虽然第二参数有默认的参数，正如我们平常使用的那样，只需要指定一个参数，但是在这里无法通过编译，因此，我们使用如下解决办法：
 ```
-template<typename T>using Lst = std::list<T, std::allocator<T>>;  // 使用using定义一个类型的别名
+template<typename T>using Lst = std==list<T, std==allocator<T>>;  // 使用using定义一个类型的别名
 // 一般stl中大多数默认第二参数都是allocator
 ```
 接下来，我们可以正常将list传入模板类中：
@@ -454,8 +454,8 @@ myGrid.getElement(2,3); 
 **注意：不要拘泥于它的语法实现，只要记住可以使用模板作为模板的一个参数。**
 <mark><font color=#3a006f>TemplateDemo3.cc</font></mark>
 ```
-#include<iostream>
-#include<vector>
+[[include]]<iostream>
+[[include]]<vector>
 // 这里默认Container的类型为vector（如果我们没有指定Container的类型）
 template<typename T, template<typename E, typename Allocator = std::allocator<E> >typename Container>class Grid{
 public:
@@ -476,7 +476,7 @@ Grid<T, Container>::Grid(int inWidth, int inHeight) : mWidth(inWidth), mHeight(i
 }
 template<typename T, template<typename E, typename Allocator = std::allocator<E> >typename Container>
 void Grid<T, Container>::getElement() {
-    std::cout << "mWidth is : " << mWidth << " and mHeight is : " << mHeight << std::endl;
+    std==cout << "mWidth is : " << mWidth << " and mHeight is : " << mHeight << std==endl;
 }
 int main() {
     Grid<int, std::vector> myGrid(2, 3);

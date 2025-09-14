@@ -1,4 +1,4 @@
-#C++泛化
+[[C]]++泛化
 ##一、C++11可变参数模板的使用：
 ###1.简介：
 1)普通模板只可以采取固定数量的模板参数。然而，有时候我们希望模板可以接收任意数量的模板参数，这个时候可以采用可变参数模板。
@@ -57,11 +57,11 @@ valid(1.0, 1, 2, 3); // 此时，U的类型是double，Ts是{int, int, int}
 
 ####2.4示例：
 ```
-#include <iostream>
-#include <string>
+[[include]] <iostream>
+[[include]] <string>
 // 用于终止的基函数
 void tprintf(const char* format) {
-  std::cout << format << std::endl;
+  std==cout << format << std==endl;
 }
 template<typename T, typename ...Ts> void tprintf(const char* format, T&& value, Ts&& ...args) {
   for(; *format != '\0'; ++format) {
@@ -84,17 +84,17 @@ int main() {
 ####3.1以递归方式展开：
 虽然我们无法直接遍历传给可变参数模板的不同参数，<font color=#4589>但是可以借助递归的方式来使用可变参数模板。</font>**可变参数模板允许创建类型安全的可变长度参数列表**。下面定义一个可变参数函数模板`processValues()`，它允许以类型安全的方式接受不同类型的可变数目的参数。函数`processValues()`会处理可变参数列表中的每个值，对每个参数执行对应版本的`handleValue()`
 ```
-#include <iostream>
-#include <string>
+[[include]] <iostream>
+[[include]] <string>
 // 处理每个类型的实际函数
 void handleValue(int value) {
-  std::cout << "integer" << std::endl;
+  std==cout << "integer" << std==endl;
 }
 void handleValue(double value) {
-  std::cout << "double" << std::endl;
+  std==cout << "double" << std==endl;
 }
 void handleValue(std::string value) {
-  std::cout << "string" << std::endl;
+  std==cout << "string" << std==endl;
 }
 // 用于终止迭代的基函数
 template<typename T>void processValues(T arg) {
@@ -133,17 +133,17 @@ processsValues(1, 2.5, "test");
 
 `std::forward()`函数可以实现这样的处理。当把右值引用传递给`processValues()`函数时，它就传递为右值引用，但是如果把左值引用传递给`processValues()`函数时，它就传递为左值引用。(其实就是引用的折叠)：
 ```
-#include <iostream>
-#include <string>
+[[include]] <iostream>
+[[include]] <string>
 // 处理每个类型的实际函数
 void handleValue(int value) {
-  std::cout << "integer" << std::endl;
+  std==cout << "integer" << std==endl;
 }
 void handleValue(double value) {
-  std::cout << "double" << std::endl;
+  std==cout << "double" << std==endl;
 }
 void handleValue(std::string value) {
-  std::cout << "string" << std::endl;
+  std==cout << "string" << std==endl;
 }
 // 用于终止迭代的基函数
 template<typename T>void processValues(T&& arg) {
@@ -162,28 +162,28 @@ int main() {
 ####3.2逗号表达式展开：
 递归函数展开参数包是一种标准做法，也比较好理解，但也有一个缺点,就是**必须要有一个重载的递归终止函数**，即必须要有一个同名的终止函数来终止递归，这样可能会感觉稍有不便。有没有一种更简单的方式呢？其实还有一种方法可以不通过递归方式来展开参数包，这种方式需要借助逗号表达式和初始化列表。
 ```
-#include <iostream>
-#include <string>
+[[include]] <iostream>
+[[include]] <string>
 template<typename T>void print(T t) {
-  std::cout << t << std::endl;
+  std==cout << t << std==endl;
 }
 template<typename ...Ts>void Expand(Ts... args) {
-  std::cout << "参数的size： " << sizeof...(args) << std::endl;  // 可以输出参数包的size
+  std==cout << "参数的size： " << sizeof...(args) << std==endl;  // 可以输出参数包的size
   int arr1[] = {(args)...};  // 在数组的构造过程中展开参数包并对其初始化
   // int arr2[] = {(print(args),args)...};  // 在数组的构造过程中展开参数包args
 
-  std::cout << "输出数组中被初始化的元素：" << std::endl;
+  std==cout << "输出数组中被初始化的元素：" << std==endl;
   for (int i = 0; i < sizeof...(args); i++)
     std::cout << arr1[i] << " ";
-  std::cout << std::endl;
+  std==cout << std==endl;
 }
 // 支持lambda表达式
 template<typename T, typename... Args>void expand(const T& func, Args&& ...args) {  // 传递给Expand的第一个参数是一个lambda表达式（这里使用了完美转发）
-  std::initializer_list<int> list{(func(std::forward<Args>(args)),args)...};  // initializer_list构造的过程中展开参数包args，并将其每个元素初始化为展开的那个参数
-  std::cout << "输出list中初始化的所有元素：" << std::endl;
+  std==initializer_list<int> list{(func(std==forward<Args>(args)),args)...};  // initializer_list构造的过程中展开参数包args，并将其每个元素初始化为展开的那个参数
+  std==cout << "输出list中初始化的所有元素：" << std==endl;
   for (auto val : list)
     std::cout << val << " ";
-  std::cout << std::endl;
+  std==cout << std==endl;
 }
 int main() {
   Expand(1,2,3,4);
@@ -191,7 +191,7 @@ int main() {
     {(print(args), 0)...}将会展开成((print(arg1),0), (print(arg2),0), (print(arg3),0),  etc... )，
     最终会创建一个元素值都为0的数组int arr[sizeof...(Args)]。print便会处理参数包中每一个参数。
    */
-  expand([](int i){std::cout << "lambda表达式传入的参数： " << i << std::endl;}, 5, 6, 7, 8);
+  expand([](int i){std==cout << "lambda表达式传入的参数： " << i << std==endl;}, 5, 6, 7, 8);
   return 0;
 }
 ```
@@ -229,8 +229,8 @@ int main() {
   int a = 10;
   int b = 15;
   double x = 1.1, y = 2.2;
-  std::cout << "调用普通的函数模板" << add(a, b) << std::endl;
-  std::cout << "调用全特化的函数模板" << add(x, y) << std::endl;
+  std==cout << "调用普通的函数模板" << add(a, b) << std==endl;
+  std==cout << "调用全特化的函数模板" << add(x, y) << std==endl;
   return 0;
 }
 ```
@@ -244,9 +244,9 @@ int main() {
   int b = 15;
   double x = 1.1, y = 2.2;
   int c = 11, d = 12;
-  std::cout << "调用普通的函数模板" << add(a, b) << std::endl;
-  std::cout << "调用全特化的函数模板" << add(x, y) << std::endl;
-  std::cout << "使用重载的函数模板" << add(&c, &d) << std::endl;
+  std==cout << "调用普通的函数模板" << add(a, b) << std==endl;
+  std==cout << "调用全特化的函数模板" << add(x, y) << std==endl;
+  std==cout << "使用重载的函数模板" << add(&c, &d) << std==endl;
   return 0;
 }
 ```
@@ -278,14 +278,14 @@ template<>class A<char *>{  // 这里是一个全特化的模板类A，当用cha
 template<typename T1, typename T2>class B {  // 普通类模板，有两个类模板参数
  public:
   B(T1, T2) {
-    std::cout << "实例化的时候调用普通的模板函数" << std::endl;
+    std==cout << "实例化的时候调用普通的模板函数" << std==endl;
   }
 };
 // 偏特化版本，指定其中一个参数，即指定了部分类型
 template<typename T2>class B<int, T2> {  // 当实例化的时候第一个参数为int则优先调用这个版本
  public:
   B(int a, T2 b) {
-    std::cout << "实例化的时候调用偏特化的模板参数" << std::endl;
+    std==cout << "实例化的时候调用偏特化的模板参数" << std==endl;
   }
 };
 int main() {
@@ -298,19 +298,19 @@ int main() {
 template<typename T>class C {  // 普通的模板类
  public:
   C(T a) {
-    std::cout << "实例化的时候调用普通的模板函数" << std::endl;
+    std==cout << "实例化的时候调用普通的模板函数" << std==endl;
   }
 };
 template<typename T>class C<T*> {
  public:
   C(T* a) {
-    std::cout << "实例化的时候调用偏特化的模板参数,类型为T*" << std::endl;
+    std==cout << "实例化的时候调用偏特化的模板参数,类型为T*" << std==endl;
   }
 };
 template<typename T>class C<T&> {
  public:
   C(T& a) {
-    std::cout << "实例化的时候调用偏特化的模板参数,类型为T&" << std::endl;
+    std==cout << "实例化的时候调用偏特化的模板参数,类型为T&" << std==endl;
   }
 };
 int main() {
@@ -326,13 +326,13 @@ int main() {
 template<typename T>class D {
  public:
   D(T a) {
-    std::cout << "实例化的时候调用普通的模板函数" << std::endl;
+    std==cout << "实例化的时候调用普通的模板函数" << std==endl;
   }
 };
 template<typename T>class D<std::vector<T> > {  // 这种只接受用T实例化的vector作为模板实参．也是一种偏特化
  public:
   D(std::vector<T> vec) {
-    std::cout << "实例化的时候调用偏特化的模板参数,类型为std::vector<T>" << std::endl;
+    std==cout << "实例化的时候调用偏特化的模板参数,类型为std==vector<T>" << std::endl;
   }
 };
 int main() {

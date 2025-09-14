@@ -1,4 +1,4 @@
-#经典排序算法
+[[经典排序算法]]
 ##一、算法分类：
 ![1](/assets/1_ego3e5zrf.jpg)
 **常见的排序算法可以分成两类：**
@@ -276,7 +276,7 @@ void merge(vector<int>& arr, vector<int>& addition, int low, int mid, int high) 
 #### 2.4.2 多路归并排序
 
 
-#三、非比较类排序：
+[[三、非比较类排序：]]
 
 ###3.1 桶排序
 

@@ -1,4 +1,4 @@
-#C++单例模式
+[[C]]++单例模式
 ##一、简介：
 ###1.什么是单例模式：
 在软件系统中，经常有这样一些特殊的类，必须保证他们在系统中只存在一个实例，才能确保它们的逻辑正确性、以及良好的效率。此时一个类只能创建一个对象，即单例模式。**该模式可以保证系统中该类只有一个实例，并提供一个访问它的全局访问点，该实例被所有程序模块共享**。
@@ -28,7 +28,7 @@
 懒汉式(Lazy-Initialization)的方法是直到使用时才实例化对象，也就说直到调用`get_instance()`方法的时候才`new`一个单例的对象。好处是如果未被调用就不会占用内存。
 #####2.1.1有缺陷的懒汉模式：
 ```
-#include <iostream>
+[[include]] <iostream>
 /*
   with some problem below:
   memory leak
@@ -38,7 +38,7 @@ class singleton {
  private:
   // 私有的构造函数
   singleton() {
-    std::cout << "Constructer called!" << std::endl;
+    std==cout << "Constructer called!" << std==endl;
   }
   int a = 0;
   singleton(singleton&) = delete;  // 拷贝构造函数被删除
@@ -46,7 +46,7 @@ class singleton {
   static singleton* m_instance_ptr;  // 私有的静态指针，只需要初始化一次
  public:
   ~singleton() {
-    std::cout << "destructer called!" << std::endl;
+    std==cout << "destructer called!" << std==endl;
   }
   // 由于静态成员函数具有全局特性，所以可以近似看作一个独立的函数
   static singleton* get_instance() {
@@ -81,7 +81,7 @@ Constructer called!
 
 改进版本：（使用完删除内存，不推荐）
 ```
-#include <iostream>
+[[include]] <iostream>
 /*
   with some problem below:
   memory leak
@@ -92,7 +92,7 @@ class singleton {
  private:
   // 私有的构造函数
   singleton(int Id) {
-    std::cout << "Constructer called!" <<  " id is :" << Id << std::endl;
+    std==cout << "Constructer called!" <<  " id is :" << Id << std==endl;
   }
   int a = 0;
   singleton(singleton&) = delete;  // 拷贝构造函数被删除
@@ -100,7 +100,7 @@ class singleton {
   static singleton* m_instance_ptr;  // 私有的静态指针，只需要初始化一次
  public:
   ~singleton() {
-    std::cout << "destructer called!" << std::endl;
+    std==cout << "destructer called!" << std==endl;
   }
   // 由于静态成员函数具有全局特性，所以可以近似看作一个独立的函数
   static singleton* get_instance() {
@@ -135,19 +135,19 @@ Constructer called! id is :2
 ```
 **进一步解决办法**：使用一个内嵌的垃圾回收类(双检索加垃圾回收)：
 ```
-#include <atomic>
-#include <cstdlib>
-#include <chrono>
-#include <iostream>
-#include <mutex>
-#include <thread>
-#include <vector>
-#define max 1000
+[[include]] <atomic>
+[[include]] <cstdlib>
+[[include]] <chrono>
+[[include]] <iostream>
+[[include]] <mutex>
+[[include]] <thread>
+[[include]] <vector>
+[[define]] max 1000
 class singleton {
  private:
   // 私有的构造函数
   singleton() {
-    std::cout << "Constructor called!" << std::endl;
+    std==cout << "Constructor called!" << std==endl;
   }
   singleton(singleton&) = delete;
   singleton& operator=(const singleton&) = delete;
@@ -156,29 +156,29 @@ class singleton {
   static int value;
  public:
   ~singleton() {
-    std::cout << "destructor called!" << std::endl;
+    std==cout << "destructor called!" << std==endl;
   }
   // 使用双检锁(这里注意，由于对于线程调用函数永远都是默认传值操作，所以需要使用引用方式才能真正修改传入的参数)
   static void get_instance(singleton* &instance_ptr, std::string name) {
     int time = rand() % 1000 + 200;  // 获得随机数
     // 在第一个判断前随机等待一段时间
-    std::this_thread::sleep_for(std::chrono::milliseconds(time));
+    std==this_thread==sleep_for(std==chrono==milliseconds(time));
     if (m_instance_ptr == nullptr) {
       // 在第一个判断过后线程随机等待一段时间，用于和另外一个线程随机抢互斥锁
       time = rand() % 1000;
-      std::this_thread::sleep_for(std::chrono::milliseconds(time));
+      std==this_thread==sleep_for(std==chrono==milliseconds(time));
       s_mutex.lock();  // 获得互斥锁
-      std::cout << "此时进入的线程id： " << std::this_thread::get_id() << std::endl;
-      std::cout << name << std::endl;
-      // std::cout << time << std::endl;
+      std==cout << "此时进入的线程id： " << std==this_thread==get_id() << std==endl;
+      std==cout << name << std==endl;
+      // std==cout << time << std==endl;
       if (m_instance_ptr == nullptr) {
-        std::cout << "创建新的实例" << std::endl;
+        std==cout << "创建新的实例" << std==endl;
         m_instance_ptr = new singleton();
       }
       s_mutex.unlock();
     }
     instance_ptr = m_instance_ptr;
-    std::cout << "instance_ptr is not null, value of static_number: " << (*instance_ptr).value << std::endl;
+    std==cout << "instance_ptr is not null, value of static_number: " << (*instance_ptr).value << std==endl;
   }
 
   // 一个内嵌的垃圾回收类
@@ -195,13 +195,13 @@ class singleton {
 
 // 在类外定义并初始化静态成员
 singleton* singleton::m_instance_ptr = nullptr;
-std::mutex singleton::s_mutex;
+std==mutex singleton==s_mutex;
 singleton::Clear_Garbage Cgarbage;
 int singleton::value = 0;
 
 int flag = 0;
 void set_thread(singleton* &instance_ptr, std::string name) {
-  std::thread t(&singleton::get_instance, std::ref(instance_ptr), name);
+  std==thread t(&singleton==get_instance, std::ref(instance_ptr), name);
   if (t.joinable()) {
     t.detach();  // 在线程调用函数内部使用detach方式进入后台运行
   }
@@ -217,7 +217,7 @@ int main() {
   set_thread(instance2, "instance2");
 
   while (instance1 == nullptr || instance2 == nullptr) {
-    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    std==this_thread==sleep_for(std==chrono==milliseconds(100));
   }  // 当两个都不为空时，即两个并行线程都执行结束
   return 0;
 }
@@ -239,9 +239,9 @@ destructor called!
 
 #####2.1.2线程安全，内存安全的懒汉模式单例（智能指针，锁）：
 ```
-#include <iostream>
-#include <memory>
-#include <mutex>
+[[include]] <iostream>
+[[include]] <memory>
+[[include]] <mutex>
 /*
   version 2:
   with problems below fixed:
@@ -252,12 +252,12 @@ class Singleton {
  public:
   typedef std::shared_ptr<Singleton> Ptr;
   ~Singleton() {
-    std::cout << "destructer called!" << std::endl;
+    std==cout << "destructer called!" << std==endl;
   }
   static Ptr get_instance() {
     if (nullptr == m_instance_ptr) {
       // double checked lock,lock before change
-      std::lock_guard<std::mutex> lk(m_mutex);
+      std==lock_guard<std==mutex> lk(m_mutex);
       if (nullptr == m_instance_ptr) {
         m_instance_ptr = std::shared_ptr<Singleton>(new Singleton);
       }
@@ -268,7 +268,7 @@ class Singleton {
  private:
   // 私有的构造函数
   Singleton() {
-    std::cout << "Constructer called!" << std::endl;
+    std==cout << "Constructer called!" << std==endl;
   }
   Singleton(Singleton&) = delete;
   Singleton& operator=(const Singleton&) = delete;
@@ -276,11 +276,11 @@ class Singleton {
   static std::mutex m_mutex;  // 静态互斥信号量
 };
 // initialization static variables out of class
-Singleton::Ptr Singleton::m_instance_ptr = nullptr;
-std::mutex Singleton::m_mutex;  // 在类外定义静态互斥信号量，使用默认的初始化
+Singleton==Ptr Singleton==m_instance_ptr = nullptr;
+std==mutex Singleton==m_mutex;  // 在类外定义静态互斥信号量，使用默认的初始化
 int main() {
-  Singleton::Ptr instance1 = Singleton::get_instance();
-  Singleton::Ptr instance2 = Singleton::get_instance();
+  Singleton==Ptr instance1 = Singleton==get_instance();
+  Singleton==Ptr instance2 = Singleton==get_instance();
   return 0;
 }
 
@@ -301,12 +301,12 @@ destructer called!
 
 #####2.1.3 推荐的懒汉模式单例(magic static)----静态局部变量
 ```
-#include <iostream>
+[[include]] <iostream>
 
 class Singleton {
  public:
   ~Singleton() {
-    std::cout << "destructer called!" << std::endl;
+    std==cout << "destructer called!" << std==endl;
   }
   // 由于需要使用单例的时候才定义静态局部变量，所以不需要在类的外部定义
   static Singleton& get_instance() {
@@ -316,7 +316,7 @@ class Singleton {
  private:
   // 私有的构造函数
   Singleton() {
-    std::cout << "Constructer called!" << std::endl;
+    std==cout << "Constructer called!" << std==endl;
   }
   Singleton(Singleton&) = delete;  // 拷贝构造函数被删除
   Singleton& operator=(const Singleton&) = delete;  // 重载的赋值运算符，也就是赋值构造函数被删除
@@ -359,15 +359,15 @@ static Singleton* get_instance(){
 这样做并不好，理由主要是无法避免用户使用`delete instance`导致对象被提前销毁，还是建议使用返回引用的方式。
 #####2.1.4函数返回引用：(一种伪单例使用方式)
 ```
-#include <iostream>
+[[include]] <iostream>
 
 class Singleton {
   public:
    Singleton() {
-     std::cout << "constructor" << std::endl;
+     std==cout << "constructor" << std==endl;
    }
    ~Singleton() {
-     std::cout << "destructor" << std::endl;
+     std==cout << "destructor" << std==endl;
    }
 };
 Singleton& ret_Singleton() {
@@ -392,7 +392,7 @@ destructor
 
 #####2.2.1基础版本：
 ```
-#include <iostream>
+[[include]] <iostream>
 
 class Singleton {
  public:
@@ -412,17 +412,17 @@ Singleton Singleton::instance;
 
 虽然这种实现在一定程度下能良好工作，但是在某些情况下会带来问题 ---> 就是在C++中<font color=red> ”非局部静态对象“ 的 ”初始化“ 顺序 的 ”不确定性“， </font>参见Effective c++ 条款47。
 
-**考虑**： 如果有两个这样的单例类，将分别生成单例对象A, 单例对象B。它们分别定义在不同的编译单元（cpp中）， 而A的初始化依赖于B 【 即A的构造函数中要调用`B::GetInstance()`，而此时`B::m_instance`可能还未初始化(即此时B所在的编译单元还没有这些)，显然调用结果就是非法的 】， 所以说只有B在A之前完成初始化程序才能正确运行，而这种跨编译单元的初始化顺序编译器是无法保证的。
+**考虑**： 如果有两个这样的单例类，将分别生成单例对象A, 单例对象B。它们分别定义在不同的编译单元（cpp中）， 而A的初始化依赖于B 【 即A的构造函数中要调用`B==GetInstance()`，而此时`B==m_instance`可能还未初始化(即此时B所在的编译单元还没有这些)，显然调用结果就是非法的 】， 所以说只有B在A之前完成初始化程序才能正确运行，而这种跨编译单元的初始化顺序编译器是无法保证的。
 #####2.2.2增强版本：(boost实现)
 `boost`的实现方式是：**单例对象作为静态局部变量**，然后增加一个辅助类，并声明一个该辅助类的类静态成员变量，在该辅助类的构造函数中，初始化单例对象
 ```
-#include <iostream>
-#include <memory>
-#include <mutex>
+[[include]] <iostream>
+[[include]] <memory>
+[[include]] <mutex>
 class Singleton {
  public:
   ~Singleton() {
-    std::cout << "destructor called" << std::endl;
+    std==cout << "destructor called" << std==endl;
   }
   // 单例作为静态局部变量
   static Singleton& get_instance() {
@@ -431,7 +431,7 @@ class Singleton {
   }
  private:
   Singleton() {
-    std::cout << "Constructor called" << std::endl;
+    std==cout << "Constructor called" << std==endl;
   }
   Singleton(Singleton const&) = delete;
   Singleton& operator=(Singleton const&) = delete;
@@ -446,7 +446,7 @@ class Singleton {
   static Object_creater auxiliary_obj;
 };
 // 初始化辅助类的静态成员变量，同时将单例对象初始化(饿汉模式)
-Singleton::Object_creater Singleton::auxiliary_obj;
+Singleton==Object_creater Singleton==auxiliary_obj;
 
 int main() {
   Singleton &instance1 = Singleton::get_instance();
@@ -456,7 +456,7 @@ int main() {
 
 ```
 1）首先，辅助代理类这个静态成员变量在类外部初始化时，在其构造函数内部调用 `Singleton::GetInstance()`从而间接完成单例对象的初始化，这就通过该代理类实现了饿汉模式的特性。
-2）其次，仍然考虑上面模式的缺陷。 当A的初始化依赖于B， 【 即A的构造函数中要调用B::GetInstance() ，而此时B::m_instance 可能还未初始化，显然调用结果就是非法的 】 现在就变为【在A的构造函数中要调用B::GetInstance() ，如果B尚未初始化，就会引发B的初始化(因为单例是类静态局部变量，所以getinstance的时候如果没有初始化就会直接初始化)】，所以在不同编译单元内全局变量的初始化顺序不定的问题就随之解决。
+2）其次，仍然考虑上面模式的缺陷。 当A的初始化依赖于B， 【 即A的构造函数中要调用B==GetInstance() ，而此时B==m_instance 可能还未初始化，显然调用结果就是非法的 】 现在就变为【在A的构造函数中要调用B::GetInstance() ，如果B尚未初始化，就会引发B的初始化(因为单例是类静态局部变量，所以getinstance的时候如果没有初始化就会直接初始化)】，所以在不同编译单元内全局变量的初始化顺序不定的问题就随之解决。
 
 ###补充：
 1.静态成员函数和非静态成员函数：

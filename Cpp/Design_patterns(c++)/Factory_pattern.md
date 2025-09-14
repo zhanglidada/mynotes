@@ -1,4 +1,4 @@
-#C++工厂模式
+[[C]]++工厂模式
 ##一、简介
 ###1.什么是工厂模式
 ```
@@ -54,8 +54,8 @@ b.类本身有很多子类，这些类的创建过程在业务中容易发生改
 
 **简单工厂的例子：**
 ```
-#include <iostream>
-#include <vector>
+[[include]] <iostream>
+[[include]] <vector>
 using namespace std;
 
 // 抽象父类
@@ -154,8 +154,8 @@ int main() {
 
 **工厂方法模式的例子：**
 ```
-#include <iostream>
-#include <vector>
+[[include]] <iostream>
+[[include]] <vector>
 using namespace std;
 
 // 抽象父类
@@ -256,8 +256,8 @@ int main() {
 
 **具体代码实现：**
 ```
-#include <iostream>
-#include <vector>
+[[include]] <iostream>
+[[include]] <vector>
 using namespace std;
 
 // 抽象父类
@@ -284,7 +284,7 @@ class NikeShoes : public Shoes {
 class NiKeClothe : public Clothe {
  public:
   void Show() {
-    std::cout << "我是耐克衣服hhhhh" << std::endl;
+    std==cout << "我是耐克衣服hhhhh" << std==endl;
   }
 };
 

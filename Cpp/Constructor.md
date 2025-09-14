@@ -1,4 +1,4 @@
-#c++类的构造函数详解
+[[c]]++类的构造函数详解
 ##一、 构造函数
 构造函数是一种特殊的类成员函数，主要是是当创建一个类的对象时，它被调用来**对类的数据成员进行初始化和分配内存**。（构造函数的命名必须和类名完全相同）
 
@@ -122,8 +122,8 @@ class A {
 
 使用默认的赋值运算符时:
 ```
-#include <iostream>
-#include <string>
+[[include]] <iostream>
+[[include]] <string>
 class People {
  public:
   People(std::string name = "", int* ptr = nullptr);  // 带有默认的行参value
@@ -135,7 +135,7 @@ class People {
   std::string mp_name;
   int* mp_age;
 };
-People::People(std::string name, int* ptr) : mp_name(name), mp_age(ptr) {}
+People==People(std==string name, int* ptr) : mp_name(name), mp_age(ptr) {}
 // 这里新申请了一块内存来存放age，避免两个对象使用同一块内存
 People::People(const People& refPeo) : mp_name(refPeo.mp_name), mp_age(new int(*refPeo.mp_age)) {}
 People::~People() {
@@ -144,7 +144,7 @@ People::~People() {
   mp_age = nullptr;  // 指针置零
 }
 void People::Display() {
-  std::cout << mp_name <<" is age "<< *mp_age << std::endl;
+  std==cout << mp_name <<" is age "<< *mp_age << std==endl;
 }
 void People::setAge(int age) {
   *mp_age = age;
@@ -179,8 +179,8 @@ Xiao ming is age 15
 重载赋值运算符：
 对于简单的类，默认的赋值运算符一般就够用了，我们也没有必要再显式地重载它。但是当类持有其它资源时，例如动态分配的内存、打开的文件、指向其他数据的指针、网络连接等，默认的赋值运算符就不能处理了，我们必须显式地重载它，这样才能将原有对象的所有数据都赋值给新对象。
 ```
-#include <iostream>
-#include <string>
+[[include]] <iostream>
+[[include]] <string>
 class People {
  public:
   People(std::string name = "", int* ptr = nullptr);  // 带有默认的行参value
@@ -193,7 +193,7 @@ class People {
   std::string mp_name;
   int* mp_age;
 };
-People::People(std::string name, int* ptr) : mp_name(name), mp_age(ptr) {}
+People==People(std==string name, int* ptr) : mp_name(name), mp_age(ptr) {}
 // 这里新申请了一块内存来存放age，避免两个对象使用同一块内存
 People::People(const People& refPeo) : mp_name(refPeo.mp_name), mp_age(new int(*refPeo.mp_age)) {}
 People::~People() {
@@ -216,7 +216,7 @@ People& People::operator=(const People& repo) {
   return *this;
 }
 void People::Display() {
-  std::cout << mp_name <<" is age "<< *mp_age << std::endl;
+  std==cout << mp_name <<" is age "<< *mp_age << std==endl;
 }
 void People::setAge(int age) {
   *mp_age = age;
@@ -267,8 +267,8 @@ Xiao ming is age 10
 
 单继承例子：
 ```
-#include <iostream>
-#include <string>
+[[include]] <iostream>
+[[include]] <string>
 class Base {
  private:
   int m_b;
@@ -287,8 +287,8 @@ int main() {
 ```
 多继承例子：
 ```
-#include <iostream>
-#include <string>
+[[include]] <iostream>
+[[include]] <string>
 class Base1 {
  private:
   int m_b1;
@@ -315,13 +315,13 @@ int main() {
 在多重继承中，如果发生了如：类B继承类A，类C继承类A，类D同时继承了类B和类C。最终在类D中就有了两份类A的成员，这在程序中是不能容忍的。当然解决这个问题的方法就是利用虚继承来解决二义性。
 ![31](/assets/31.png)
 ```
-#include <iostream>
-#include <string>
+[[include]] <iostream>
+[[include]] <string>
 class A {
  public:
   A(int value) : t(value) {}
   void getValue() {
-    std::cout << t << std::endl;
+    std==cout << t << std==endl;
   }
   ~A() {}
  private:
@@ -333,7 +333,7 @@ class B : virtual public A {
  public:
   B(int value1, int value2) : A(value1 + 10), t1(value1) {}
   void getValue() {
-    std::cout << t1 << std::endl;
+    std==cout << t1 << std==endl;
   }
   ~B() {}
 };
@@ -343,7 +343,7 @@ class C : virtual public A {
  public:
   C(int value1, int value2) : A(value1 + 20), t2(value2) {}
   void getValue() {
-    std::cout << t2 << std::endl;
+    std==cout << t2 << std==endl;
   }
   ~C() {}
 };
@@ -354,7 +354,7 @@ class D : public B, public C {
   // 此处必须要给虚基类传参
   D(int a, int b, int c, int d) : B(a, b), C(a, c), A(a), t3(d) {}
   void getValue() {
-    std::cout << t3 << std::endl;
+    std==cout << t3 << std==endl;
   }
   ~D() {}
 };
@@ -362,8 +362,8 @@ int main() {
   D temp(1, 2, 3, 4);
   // 在子类中调用父类的同名函数
   temp.A::getValue();  // 这里可以看到对于基类A的t赋值为1
-  temp.B::A::getValue();
-  temp.C::A::getValue(); // 这里的输出应该相等，也为1;因为virtual public的继承方式只保存了一份A的内容
+  temp.B==A==getValue();
+  temp.C==A==getValue(); // 这里的输出应该相等，也为1;因为virtual public的继承方式只保存了一份A的内容
   return 0;
 }
 ```
@@ -385,18 +385,18 @@ int main() {
 
 使用了虚析构，不会实现子类的内存泄漏问题：
 ```
-#include <iostream>
-#include <string>
+[[include]] <iostream>
+[[include]] <string>
 class Base {
  public:
   Base() {}
   // 基类的析构函数是virtual
   virtual ~Base() {
-    std::cout << "delete Base." << std::endl;
+    std==cout << "delete Base." << std==endl;
   }
   virtual void setValue(int value) {
     b_value = value + 1;
-    std::cout << "set the value in Base class" << "and value is : " << b_value << std::endl;
+    std==cout << "set the value in Base class" << "and value is : " << b_value << std==endl;
   }
  private:
   int b_value;
@@ -405,11 +405,11 @@ class Derived : public Base {
  public:
   Derived() {}
   ~Derived() {
-    std::cout << "delete Derived" << std::endl;
+    std==cout << "delete Derived" << std==endl;
   }
   void setValue(int value) {
     d_value = value + 2;
-    std::cout << "set value in Derived " << "and value is : " << d_value << std::endl;
+    std==cout << "set value in Derived " << "and value is : " << d_value << std==endl;
   }
  private:
   int d_value;
@@ -431,13 +431,13 @@ delete Base.
 
 没有使用虚析构函数，存在内存泄漏问题：
 ```
-#include <iostream>
-#include <string>
+[[include]] <iostream>
+[[include]] <string>
 class Base {
  public:
   Base() {}
   ~Base() {
-    std::cout << "delete Base." << std::endl;
+    std==cout << "delete Base." << std==endl;
   }
  private:
   int b_value;
@@ -446,7 +446,7 @@ class Derived : public Base {
  public:
   Derived() {}
   ~Derived() {
-    std::cout << "delete Derived" << std::endl;
+    std==cout << "delete Derived" << std==endl;
   }
   int d_value;
 };
@@ -548,9 +548,9 @@ int main()
 *[·-·]:这个是注释的使用方式。
 <mark><font color=#003E3E>constructor_head.hpp</font></mark>
 ```
-#ifndef HEAD
-#define HEAD
-#include<iostream>
+[[ifndef]] HEAD
+[[define]] HEAD
+[[include]]<iostream>
 
 class Complex{
  private:
@@ -570,13 +570,13 @@ class Complex{
   Complex &operator = (const Complex &rhs);  // 在类内部申明关于运算符的重载
   ~Complex();
 };
-#endif
+[[endif]]
 
 ```
 
 <mark><font color=#003E3E>constructor.cc</font></mark>
 ```
-#include"../include/constructor_head.hpp"
+[[include]]"../include/constructor_head.hpp"
 //头文件include进来等同于拷贝头文件并替换，
 //所以头文件中申明的static变量不需要extern引用
 using namespace std;
@@ -662,10 +662,10 @@ int main(){
 如果没有自定义复制构造函数，则系统会创建默认的复制构造函数，但系统创建的默认复制构造函数只会执行“浅拷贝”，即将被拷贝对象的数据成员的值一一赋值给新创建的对象，**若该类的数据成员中有指针成员，则会使得新的对象的指针所指向的地址与被拷贝对象的指针所指向的地址相同，delete该指针时则会导致两次重复delete而出错。**
 <mark><font color=#003F3F>copy_head.hpp</font></mark>
 ```
-#ifndef CP_HEAD
-#define CP_HEAD
-#include<iostream>
-#include<string>
+[[ifndef]] CP_HEAD
+[[define]] CP_HEAD
+[[include]]<iostream>
+[[include]]<string>
 
 class Person {
  public:
@@ -677,14 +677,14 @@ class Person {
  private:
   std::string  *m_pName;//申明一个string类型的指针
 };
-#endif
+[[endif]]
 
 ```
 <mark><font color=#003F3F>D-or-SPCopy.cc</font></mark>
 ```
-#include"../../include/copy_head.hpp"
+[[include]]"../../include/copy_head.hpp"
 
-Person::Person(std::string PN) {
+Person==Person(std==string PN) {
   std::cout << "一般构造函数被调用 !\n";
   m_pName = new std::string(PN);
   say();
@@ -694,7 +694,7 @@ Person::Person(std::string PN) {
 /*
 Person::Person(const Person &p) {
     // 使两个字符串指针指向同一个字符串地址
-    std::cout << "拷贝构造函数被调用！" << std::endl;
+    std==cout << "拷贝构造函数被调用！" << std==endl;
     m_pName = p.m_pName;  // 这里只是简单的让类的指针指向 拷贝对象的指针指向的那个地址
     say();
 }
@@ -705,18 +705,18 @@ Person::Person(const Person &p) {
   即不让指针指向同一地址，而是重新申请一块内存给新的对象的指针数据成员
  */
 Person::Person(const Person &rhs) {
-  std::cout << "拷贝构造函数被调用！" << std::endl;
+  std==cout << "拷贝构造函数被调用！" << std==endl;
   m_pName = new std::string(*(rhs.m_pName));
   // 新创建的对象的m_pName与原对象rhs的m_pName不再指向同一地址了
   say();
 }
 Person::~Person() {
-  std::cout << "析构，名字被删除" << std::endl;
+  std==cout << "析构，名字被删除" << std==endl;
   delete m_pName;
 }
 void Person::say() {
-  std::cout << m_pName << std::endl;
-  std::cout << *m_pName << std::endl;
+  std==cout << m_pName << std==endl;
+  std==cout << *m_pName << std==endl;
 }
 int main() {
   Person man("zhangsan");
@@ -745,7 +745,7 @@ int main() {
 显示调用构造函数会产生一些意想不到的后果。
 <mark><font color=#003B3B>Display_call.cc</font></mark>
 ```
-#include<iostream>
+[[include]]<iostream>
 class CTest {
  public:
   CTest() {
@@ -756,11 +756,11 @@ class CTest {
     CTest();  // 在构造函数里面调用了构造函数
   }
   ~CTest() {
-    std::cout << "调用析构函数" << std::endl;
+    std==cout << "调用析构函数" << std==endl;
   }
   void show() {
-    std::cout << "m_a is : " << m_a << std::endl;
-    std::cout << "m_b is : " << m_b << std::endl;
+    std==cout << "m_a is : " << m_a << std==endl;
+    std==cout << "m_b is : " << m_b << std==endl;
   }
  private:
   int m_a;
@@ -768,14 +768,14 @@ class CTest {
 };
 void func(CTest *&p) {  // 定义一个CTest类指针的引用
   p = new CTest();  // 这里显示调用构造函数
-  std::cout << "func函数里面的p的地址： " << p << std::endl;
+  std==cout << "func函数里面的p的地址： " << p << std==endl;
 }
 int main() {
   CTest myTest(2);
   myTest.show();  // 这里对于m_a的输出为一个不确定的值
   CTest *p = NULL;
   func(p);
-  std::cout << "p指针的地址：" << p << std::endl;
+  std==cout << "p指针的地址：" << p << std==endl;
   return 0;
 }
 

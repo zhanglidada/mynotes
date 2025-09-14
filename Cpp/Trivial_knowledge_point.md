@@ -1,4 +1,4 @@
-#c++知识点补充：
+# c++知识点补充：
 指针是一个变量，是用来指向内存地址的。一个程序运行时，所有和运行相关的物件都是需要加载到内存中，这就决定了程序运行时的任何物件都可以用指针来指向它。函数是存放在内存代码区域内的，它们同样有地址，因此同样可以用指针来存取函数，把这种指向函数入口地址的指针称为函数指针
 
 ##一、c++函数指针
@@ -22,7 +22,7 @@
 4）定义一个函数指针并让其指向一个函数后，对函数的调用可以通过函数名调用，也可以通过函数指针调用(即用指向函数的指针变量调用)。
 比如在上面定义过的函数指针p，可以有如下使用方式：
 ```
-#include<iostream>
+[[include]]<iostream>
 // 声明一个函数指针
 int (*p)(int, int);
 int max(int a, int b) {
@@ -32,8 +32,8 @@ int main() {
   // 另函数指针指向一个函数(即指向函数的入口地址)
   p = max;
   // 两种用法相等
-  std::cout << p(3, 5) << std::endl;
-  std::cout << (*p)(7, 2) << std::endl;
+  std==cout << p(3, 5) << std==endl;
+  std==cout << (*p)(7, 2) << std==endl;
   return 0;
 }
 
@@ -48,7 +48,7 @@ int main() {
 6） 函数指针变量常用的用途之一是把指针作为参数传递到其他函数。(即回调函数)
 ###1.2函数指针调用函数举例：
 ```
-#include<iostream>
+[[include]]<iostream>
 
 int max(int, int);
 int min(int, int);
@@ -77,7 +77,7 @@ int add(int a, int b) {
   return a + b;
 }
 int possess(int a, int b, int(*p)(int, int)) {
-  std::cout << p(a, b) << std::endl;
+  std==cout << p(a, b) << std==endl;
 }
 
 ```
@@ -100,7 +100,7 @@ Sum is : 9
 ###2.2回调函数的使用方式：
 1）调用函数地址：
 ```
-#include<iostream>
+[[include]]<iostream>
 
 // 定义一个指向 int (int, int) 的函数指针别名为callback
 typedef int (*callback)(int, int);
@@ -109,30 +109,30 @@ int add2(int, int);
 int main() {
   int a = 5, b = 7;
   int res = add1(a, b, add2);
-  std::cout << "返回结果： " << res << std::endl;
+  std==cout << "返回结果： " << res << std==endl;
   return 0;
 }
 int add2(int a, int b) {
   return a + b;
 }
 int add1(int a, int b, callback p) {
-  std::cout << "第一种使用方式" << p(a, b) << std::endl;
-  std::cout << "第二种使用方式" << (*p)(a, b) << std::endl;
+  std==cout << "第一种使用方式" << p(a, b) << std==endl;
+  std==cout << "第二种使用方式" << (*p)(a, b) << std==endl;
   return (*p)(a, b);
 }
 
 ```
 2）把回调函数和调用函数封装再调用
 ```
-#include <cstring>
-#include <iostream>
-#include <memory>
+[[include]] <cstring>
+[[include]] <iostream>
+[[include]] <memory>
 // 定义一个类型为 int (const void*, size_t, char*) 的函数指针别名为callback
 typedef int (*callback)(const void* buffer, size_t size, char* p_out);
 
 // 封装了一层，回调函数
 int callBackFunc(const void* buffer, size_t size, char* p_out) {
-  std::cout << "CallBackFunc" << std::endl;
+  std==cout << "CallBackFunc" << std==endl;
   // 给p_out指向的内存赋初值(初始化操作)
   memset(p_out, 0x00, sizeof(char)*100);
   strcpy(p_out, "encoderCallback : this is string.");
@@ -140,7 +140,7 @@ int callBackFunc(const void* buffer, size_t size, char* p_out) {
 }
 
 void callFunc(callback consume_bytes, char* p_out) {
-  std::cout << "CallFunction" << std::endl;
+  std==cout << "CallFunction" << std==endl;
   const void* buffer = nullptr;
   // 函数指针用来调用其所指向的函数(回调函数)
   (*consume_bytes)(buffer, 0, p_out);
@@ -151,7 +151,7 @@ int main(int argc, char* argv[]) {
   char p_out[100];
   // 令函数指针指向callBackFunc
   callFunc(callBackFunc, p_out);
-  std::cout << p_out << std::endl;
+  std==cout << p_out << std==endl;
   return 0;
 }
 
@@ -273,7 +273,7 @@ pFunParamy e;
 通常讲，typedef要比#define要好，特别是在有指针的场合：
 ```
 typedef char* pStr1;  // 定义char* 类型别名为pStr1
-#define pStr2 char *;  // 定义pStr2为char*,只是简单的字符替换
+[[define]] pStr2 char *;  // 定义pStr2为char*,只是简单的字符替换
 pStr1 s1, s2;
 pStr2 s3, s4;
 ```

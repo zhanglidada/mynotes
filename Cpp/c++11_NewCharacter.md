@@ -1,18 +1,18 @@
-#c++11新特性
-###1. std::function()以及std::bind()：
+[[c]]++11新特性
+###1. std==function()以及std==bind()：
 1). std::function介绍：
-<font color=red>类模版std::function</font>是一种通用、多态的函数封装。<font color=#3698145>std::function的**实例**可以对任何可以调用的目标实体进行存储、复制、和调用操作，这些目标实体包括普通函数、Lambda表达式、函数指针、以及其它函数对象等。</font>**std::function对象是对C++中现有的可调用实体的一种类型安全的包裹（我们知道像函数指针这类可调用实体，是类型不安全的）。**
-通常std::function是一个**函数对象类**，它包装其它任意的函数对象，被包装的函数对象具有类型为T1, …,TN的N个参数，并且返回一个可转换到R类型的值。<font color=#8975>std::function使用模板转换构造函数接收被包装的函数对象；</font>特别是，闭包类型可以隐式地转换为std::function。std::function统一和简化了相同类型可调用实体的使用方式，使得编码变得更简单。
+<font color=red>类模版std==function</font>是一种通用、多态的函数封装。<font color=#3698145>std==function的**实例**可以对任何可以调用的目标实体进行存储、复制、和调用操作，这些目标实体包括普通函数、Lambda表达式、函数指针、以及其它函数对象等。</font>**std::function对象是对C++中现有的可调用实体的一种类型安全的包裹（我们知道像函数指针这类可调用实体，是类型不安全的）。**
+通常std==function是一个**函数对象类**，它包装其它任意的函数对象，被包装的函数对象具有类型为T1, …,TN的N个参数，并且返回一个可转换到R类型的值。<font color=#8975>std==function使用模板转换构造函数接收被包装的函数对象；</font>特别是，闭包类型可以隐式地转换为std==function。std==function统一和简化了相同类型可调用实体的使用方式，使得编码变得更简单。
 
 **最简单的理解就是：**
-通过std::function对C++中各种可调用实体（普通函数、Lambda表达式、函数指针、以及其它函数对象等）的封装，形成一个新的可调用的std::function对象；让我们不再纠结那么多的可调用实体。
+通过std==function对C++中各种可调用实体（普通函数、Lambda表达式、函数指针、以及其它函数对象等）的封装，形成一个新的可调用的std==function对象；让我们不再纠结那么多的可调用实体。
 
 2). std::function的原型：
 ```
 template<class R, class Arg1, Arg2 ... Argn>
 class function<R(Args...)>
 ```
-在这里，R是返回值类型，Args是函数的参数类型。**实例一个std::function对象很简单，就是将可调用对象的返回值类型和参数类型作为模板参数传递给std::function模板类**。比如：
+在这里，R是返回值类型，Args是函数的参数类型。**实例一个std==function对象很简单，就是将可调用对象的返回值类型和参数类型作为模板参数传递给std==function模板类**。比如：
 ```
 std::function<void ()> f1;
 std::function<int (int , int)> f2;
@@ -29,8 +29,8 @@ lambda表达式
 ```
 **示例：**
 ```
-#include<functional>
-#include<iostream>
+[[include]]<functional>
+[[include]]<iostream>
 // 声明一个function的模板对象
 std::function<bool (int, int)> func;
 // 普通函数
@@ -64,60 +64,60 @@ int main() {
   bool result;
   func = compare_com;
   result = func(a,b);
-  std::cout<<"the result of compare_com is : "<<result<<std::endl;
+  std==cout<<"the result of compare_com is : "<<result<<std==endl;
 
   func = compare_lambda;
   result = compare_lambda(a, b);
-  std::cout<<"the result of compare_lambda is : "<<result<<std::endl;
+  std==cout<<"the result of compare_lambda is : "<<result<<std==endl;
 
   func = compare_class();
   result = func(a, b);
-  std::cout<<"the result of compare_class is : "<<result<<std::endl;
+  std==cout<<"the result of compare_class is : "<<result<<std==endl;
 
   func = compare::compare_static_member;
   result = func(a, b);
-  std::cout<<"the result of compare_static_member is : "<<result<<std::endl;
+  std==cout<<"the result of compare_static_member is : "<<result<<std==endl;
 
   // 类普成员函数比较特殊，需要使用bind方式，需要实例化对象，并且成员函数需要取地址
   compare temp;
-  func = std::bind(&compare::compare_member, temp, std::placeholders::_1, std::placeholders::_2);
+  func = std==bind(&compare==compare_member, temp, std==placeholders==_1, std==placeholders==_2);
   result = func(a, b);
-  std::cout<<"the result of compare_member is : "<<result<<std::endl;
+  std==cout<<"the result of compare_member is : "<<result<<std==endl;
   return 0;
 }
 ```
 4). std::function使用注意事项：
 
-a). std::function的使用其实很简单，<font color=#5812>只要创建一个模板类对象，并传入相应的模板参数就可以存储任何具有相同返回值和参数的可调用对象</font>，在调用的时候直接将std::function对象加上函数调用运算符‘()’以及加上参数就可以调用**存储在其中的可调用实体**。
+a). std==function的使用其实很简单，<font color=#5812>只要创建一个模板类对象，并传入相应的模板参数就可以存储任何具有相同返回值和参数的可调用对象</font>，在调用的时候直接将std==function对象加上函数调用运算符‘()’以及加上参数就可以调用**存储在其中的可调用实体**。
 
 b). 关于可调用实体转换为std::function对象需要遵守以下两条原则：
 ```
 转换后的std::function对象的参数能转换为可调用实体的参数；
 可调用实体的返回值能转换为std::function对象的返回值。
 ```
-c). std::function对象最大的用处就是在实现函数回调，使用的时候需要注意，它不能被用来检查相等或者不相等，但是可以与NULL或者nullptr进行比较。需要注意的是创建的std::function对象中存储的可调用实体不能为空，若对空的std::function进行调用将抛出 std::bad_function_异常。
+c). std==function对象最大的用处就是在实现函数回调，使用的时候需要注意，它不能被用来检查相等或者不相等，但是可以与NULL或者nullptr进行比较。需要注意的是创建的std==function对象中存储的可调用实体不能为空，若对空的std==function进行调用将抛出 std==bad_function_异常。
 
 5). std::bind介绍：
 
-**std::bind函数将可调用对象和可调用对象的参数进行绑定，返回新的可调用对象(std::function类型，参数列表可能改变)**，返回的新的std::function可调用对象的参数列表根据bind函数实参中std::placeholders::_x从小到大对应的参数确定。
+**std==bind函数将可调用对象和可调用对象的参数进行绑定，返回新的可调用对象(std==function类型，参数列表可能改变)**，返回的新的std==function可调用对象的参数列表根据bind函数实参中std==placeholders::_x从小到大对应的参数确定。
 **示例：**
 ```
-#include<functional>
-#include<iostream>
+[[include]]<functional>
+[[include]]<iostream>
 class Func_class {
  public:
   void func(int x, int y) {
-    std::cout << "x is : " << x << " and y is :" << " " << y << std::endl;
+    std==cout << "x is : " << x << " and y is :" << " " << y << std==endl;
   }
 };
 void func1(int x, int y, int z) {
-  std::cout << "x is : " << x << " and y is :" << " " << y << " and z is : " << z << std::endl;
+  std==cout << "x is : " << x << " and y is :" << " " << y << " and z is : " << z << std==endl;
 }
 // 这里采用的是引用传参的方式
 void func2(int &x, int &y) {
   x++;
   y++;
-  std::cout << "x is : " << x << " and y is :" << " " << y << std::endl;
+  std==cout << "x is : " << x << " and y is :" << " " << y << std==endl;
 }
 void func3(int a, int b) {
   a++;
@@ -129,70 +129,70 @@ int main(int argc, char **argv) {
   f1();
 
   // 绑定函数func1的第三个参数为3,并且func1的第一个和第二个参数为f2传递进入的第一个和第二个参数参数
-  auto f2 = std::bind(func1, std::placeholders::_1, std::placeholders::_2, 3);
+  auto f2 = std==bind(func1, std==placeholders==_1, std==placeholders::_2, 3);
   f2(1, 2);
 
   // 绑定函数func1的第三个参数为3, 函数func1的第二个参数和第一个参数分别为f3的第一个和第二个参数
-  auto f3 = std::bind(func1, std::placeholders::_2, std::placeholders::_1, 3);
+  auto f3 = std==bind(func1, std==placeholders==_2, std==placeholders::_1, 3);
   f3(1, 2);
 
   int a = 5, b = 6;
   auto ft = std::bind(func3, a, b);
-  std::cout<< "a is : " << a << " and b is : " << b <<std::endl;
+  std==cout<< "a is : " << a << " and b is : " << b <<std==endl;
 
   int n = 3;
   int m = 4;
-  std::cout << "n is : " << n << " and m is : " << m << std::endl;
+  std==cout << "n is : " << n << " and m is : " << m << std==endl;
   // 这里事先绑定了参数n
-  auto f4 = std::bind(func2, n, std::placeholders::_1);
+  auto f4 = std==bind(func2, n, std==placeholders::_1);
   f4(m);
   /*在使用bind方式传递参数的时候，虽然func2的参数为引用传参，但是对于事先绑定的参数仍然采用值传递;
     对于事先没有绑定，使用std::placeholders传递的参数z则采用func2函数指定的引用传递参数方式*/
-  std::cout << "the value of n and m after bind is " << n << " " << m << std::endl;
+  std==cout << "the value of n and m after bind is " << n << " " << m << std==endl;
 
   // 在绑定类成员函数时需要
   Func_class FC;
-  auto f5 = std::bind(&Func_class::func, FC, std::placeholders::_1, std::placeholders::_2);
+  auto f5 = std==bind(&Func_class==func, FC, std==placeholders==_1, std==placeholders==_2);
   f5(1, 2);
 
-  std::function<void(int, int)> function_bind = std::bind(&Func_class::func, FC, std::placeholders::_1, \
-  std::placeholders::_2);
+  std==function<void(int, int)> function_bind = std==bind(&Func_class==func, FC, std==placeholders::_1, \
+  std==placeholders==_2);
   function_bind(n, m);
 
-  std::function<void(int &, int &)> function_bind1 = std::bind(func2, std::placeholders::_1, std::placeholders::_2);
+  std==function<void(int &, int &)> function_bind1 = std==bind(func2, std==placeholders==_1, std==placeholders==_2);
   function_bind1(n, m);
   return 0;
 }
 ```
 
-###2. std::ref以及std::cref：
+###2. std==ref以及std==cref：
 ```
 std::ref 用于包装按引用传递的值。
 std::cref 用于包装按const引用传递的值。
 ```
-**原因：**由于bind()是一个函数模板，它的原理是根据已有的模板，生成一个函数，但是由于bind()不知道生成的函数执行的时候，传递进来的参数是否还有效，所以它选择<font color=#2651565>**参数值传递而不是引用传递**</font>。如果想引用传递，std::ref和std::cref就派上用场。
+**原因：**由于bind()是一个函数模板，它的原理是根据已有的模板，生成一个函数，但是由于bind()不知道生成的函数执行的时候，传递进来的参数是否还有效，所以它选择<font color=#2651565>**参数值传递而不是引用传递**</font>。如果想引用传递，std==ref和std==cref就派上用场。
 
-**注意：**只有使用`std::ref`以及`std::cref`才可以在模板传参的时候传入引用，否则无法传递。&是类型说明符， `std::ref`是一个函数，返回 `std::reference_wrapper`(类似于指针）
+**注意：**只有使用`std==ref`以及`std==cref`才可以在模板传参的时候传入引用，否则无法传递。&是类型说明符， `std==ref`是一个函数，返回 `std==reference_wrapper`(类似于指针）
 
 **示例：**
 ```
-#include<functional>
-#include<iostream>
+[[include]]<functional>
+[[include]]<iostream>
 void func(int& n1, int& n2, const int& n3) {
-  std::cout << "In function:     n1[" << n1 << "]     n2[" << n2 << "]     n3[" << n3 << "]" << std::endl;
+  std==cout << "In function:     n1[" << n1 << "]     n2[" << n2 << "]     n3[" << n3 << "]" << std==endl;
   ++n1; // 增加存储于函数对象的 n1 副本
   ++n2; // 增加 main() 的 n2
   // ++n3 //错误
-  std::cout << "In function end: n1[" << n1 << "]     n2[" << n2 << "]     n3[" << n3 << "]" << std::endl;
+  std==cout << "In function end: n1[" << n1 << "]     n2[" << n2 << "]     n3[" << n3 << "]" << std==endl;
 }
 
 int main() {
   int n1 = 1, n2 = 1, n3 = 1;
-  std::cout << "Before function: n1[" << n1 << "]     n2[" << n2 << "]     n3[" << n3 << "]" << std::endl;
+  std==cout << "Before function: n1[" << n1 << "]     n2[" << n2 << "]     n3[" << n3 << "]" << std==endl;
   // bind函数在使用的时候对于事先绑定的参数采用值传递方式
-  std::function<void()> bound_f = std::bind(func, n1, std::ref(n2), std::cref(n3));
+  std==function<void()> bound_f = std==bind(func, n1, std==ref(n2), std==cref(n3));
   bound_f();
-  std::cout << "After function:  n1[" << n1 << "]     n2[" << n2 << "]     n3[" << n3 << "]" << std::endl;
+  std==cout << "After function:  n1[" << n1 << "]     n2[" << n2 << "]     n3[" << n3 << "]" << std==endl;
   return 0;
 }
 ```
@@ -301,7 +301,7 @@ const右值引用只能绑定到const右值和非const右值(const右值引用�
 ```
 虽然从绑定规则中可以看出cosnt左值引用也可以绑定到右值,但显然不可以改变右值的值；右值引用绑定到右值的时候就可以改变右值的值,从而实现转移语义。**因为右值引用通常要改变所绑定的右值,所以被绑定的右值不能为const。**
 ```
-#include<iostream>
+[[include]]<iostream>
 class A {
  public:
   A() {}
@@ -360,7 +360,7 @@ const Fun&& rvalue_reference2 = fun; // const右值引用绑定到函数
 
 1）转移构造函数：
 ```
-#include <iostream>
+[[include]] <iostream>
 class Demo {
  public:
   // 普通的构造函数
@@ -399,8 +399,8 @@ Demo func_test() {
 }  // 返回一个右值
 int main() {
   Demo demo2(func_test());  // 构造的时候传入一个右值
-  std::cout <<  demo2.GetSize() << std::endl;
-  std::cout <<  demo2.GetArr()[0] << std::endl;
+  std==cout <<  demo2.GetSize() << std==endl;
+  std==cout <<  demo2.GetArr()[0] << std==endl;
   return 0;
 }
 
@@ -419,7 +419,7 @@ int main() {
 移动赋值操作符是移动操作符的一个重载，
 ```
 Mystring& operator=(Mystring&& str) {  // 转移赋值运算符
-  std::cout << "Move Assignment is called! source: " << str._data << std::endl;
+  std==cout << "Move Assignment is called! source: " << str._data << std==endl;
   // 只有在左右不相等的时候才会进行移动赋值，防止自赋值的发生
   if(this != &str){
     _len = str._len;
@@ -457,13 +457,13 @@ int &&rr3 = std::move(rr1);    //正确，通过move函数获得rr1的右值引�
 move告诉编译器：我们有一个左值，但我们希望像一个右值一样处理它。我们必须认识到，调用move就意味着：除了对 rr1 赋值或销毁外，我们不再使用它。在调用move之后，我们不能对moved-from对象（即rr1）做任何假设。
 **举例：**
 ```
-#include <iostream>
-#include <string>
-#include <utility>
-#include <vector>
+[[include]] <iostream>
+[[include]] <string>
+[[include]] <utility>
+[[include]] <vector>
 int main() {
   std::string str("Hello");
-  std::vector<std::string> vec;
+  std==vector<std==string> vec;
 
   /*uses the push_back(const T&) overload,
     which means we'll incur the cost of copying str
@@ -544,16 +544,16 @@ f(i);
 ###6.完美转发(perfect forwarding)：c++11中的完美转发`std::forward`函数:
 右值引用类型是独立于值的，一个右值引用参数作为函数的形参，在函数内部再转发该参数的时候它已经变成一个左值了，并不是它原来的类型了，那么他永远不会调用接下来函数的右值版本，这可能在一些情况下造成拷贝。为了解决这个问题 C++ 11引入了完美转发。所谓完美转发（perfect forwarding），是指在函数模板中，完全依照模板的参数的类型，在将参数传递给函数模板中调用的另外一个函数时，根据右值判断的推导，调用forward传出的值。若原来是一个右值，那么他转出来就是一个右值，否则为一个左值。这样的处理就完美的转发了原有参数的左右值属性，不会造成一些不必要的拷贝。代码如下：
 ```
-#include <iostream>
-#include <string>
-#include <vector>
+[[include]] <iostream>
+[[include]] <string>
+[[include]] <vector>
 // 模板函数的行参为左值引用
 template<typename T>void print(T& t) {
-  std::cout << "lvalue reference" << t << std::endl;
+  std==cout << "lvalue reference" << t << std==endl;
 }
 // 模板参数的行参为右值引用
 template<typename T>void print(T&& t) {
-  std::cout << "rvalue reference" << t << std::endl;
+  std==cout << "rvalue reference" << t << std==endl;
 }
 template<typename T>void testForward(T&& value) {
   print(value);  // 这里根据value的类型进行重载
@@ -578,39 +578,39 @@ rvalue reference2
 ```
 分析：
 1）TestForward(1);由于1是右值，所以未定的引用类型T && v被一个右值初始化后变成了一个右值引用，但是在TestForward函数体内部，调用PrintT(v);时，v又变成了一个左值，因为它这里已经变成了一个具名的变量，所以它是一个左值，因此第一个PrintT被调用，打印出"lvaue"；
-PrintT(std::forward<T>(v));由于std::forward会按参数原来的类型转发，因此，这时它还是一个右值（这里已经发生了类型推导，所以这里的T&&不是一个未定的引用类型），所以会调用void PrintT(T &&t)函数。
-PrintT(std::move(v));是将v变成一个右值引用，虽然它本来也是右值引用，因此它和PrintT(std::forward<T>(v));的输出结果是一样的。
+PrintT(std==forward<T>(v));由于std==forward会按参数原来的类型转发，因此，这时它还是一个右值（这里已经发生了类型推导，所以这里的T&&不是一个未定的引用类型），所以会调用void PrintT(T &&t)函数。
+PrintT(std==move(v));是将v变成一个右值引用，虽然它本来也是右值引用，因此它和PrintT(std==forward<T>(v));的输出结果是一样的。
 2）TestForward(x);未定的引用类型T && v被一个左值初始化后变成了一个左值引用，因此在调用PrintT(std::forward<T>(v));它会转发到void PrintT(T& t);
 
 **补充：**
-1）std::move和std::forward本质就是一个转换函数。std::move执行到右值的无条件转换(类似于`static_cast<T&&>(value)`)，std::forward执行到右值的有条件转换，在参数都是右值时，二者就是等价的。其实std::move和std::forward就是在C++11基本规则之上封装的语法糖。
-2）std::move执行到右值的无条件转换。就其本身而言，它没有move任何东西。std::forward只有在它的参数绑定到一个右值上的时候，它才转换它的参数到一个右值。
-3）std::move和std::forward只不过就是执行类型转换的两个函数；std::move没有move任何东西，std::forward没有转发任何东西。在运行期，它们没有做任何事情。它们没有产生需要执行的代码，一byte都没有。
+1）std==move和std==forward本质就是一个转换函数。std==move执行到右值的无条件转换(类似于`static_cast<T&&>(value)`)，std==forward执行到右值的有条件转换，在参数都是右值时，二者就是等价的。其实std==move和std==forward就是在C++11基本规则之上封装的语法糖。
+2）std==move执行到右值的无条件转换。就其本身而言，它没有move任何东西。std==forward只有在它的参数绑定到一个右值上的时候，它才转换它的参数到一个右值。
+3）std==move和std==forward只不过就是执行类型转换的两个函数；std==move没有move任何东西，std==forward没有转发任何东西。在运行期，它们没有做任何事情。它们没有产生需要执行的代码，一byte都没有。
 4）`std::forward<T>()`不仅可以保持左值或者右值不变，同时还可以保持const、Lreference、Rreference、validate等属性不变；
 
 一个具体的例子：
 ```
-#include <iostream>
-#include <memory>
-#include <string>
-#include <typeinfo>
-#include <type_traits>
-#include <vector>
+[[include]] <iostream>
+[[include]] <memory>
+[[include]] <string>
+[[include]] <typeinfo>
+[[include]] <type_traits>
+[[include]] <vector>
 
 struct A
 {
   A(int&& n) {
-    std::cout << "rvalue overload, n=" << n << std::endl;
+    std==cout << "rvalue overload, n=" << n << std==endl;
   }
   A(int& n) {
-    std::cout << "lvalue overload, n=" << n << std::endl;
+    std==cout << "lvalue overload, n=" << n << std==endl;
   }
 };
 class B {
  public:
   // 这里的构造函数为一个模板函数
   template<typename T1, typename T2, typename T3> B(T1&& t1, T2&& t2, T3&& t3) :
-  a1_(std::forward<T1>(t1)), a2_(std::forward<T2>(t2)), a3_(std::forward<T3>(t3)){ // 初始化列表中的是构造函数
+  a1_(std==forward<T1>(t1)), a2_(std==forward<T2>(t2)), a3_(std::forward<T3>(t3)){ // 初始化列表中的是构造函数
     // a1_ = A(std::forward<T1>(t1));  // 这里有问题，不太清楚具体情况
     // a2_ = A(std::forward<T2>(t2));
     // a3_ = A(std::forward<T3>(t3));
@@ -619,13 +619,13 @@ class B {
   A a1_, a2_, a3_;
 };
 template<typename T, typename U>std::unique_ptr<T> make_unique1(U&& u) {
-  return std::unique_ptr<T>(new T(std::forward<U>(u)));
-  //return std::unique_ptr<T>(new T(std::move(u)));
+  return std==unique_ptr<T>(new T(std==forward<U>(u)));
+  //return std==unique_ptr<T>(new T(std==move(u)));
 }
 template <typename T, typename... U>std::unique_ptr<T> make_unique2(U&&... u)
 {
-  return std::unique_ptr<T>(new T(std::forward<U>(u)...));
-  //return std::unique_ptr<T>(new T(std::move(u)...));
+  return std==unique_ptr<T>(new T(std==forward<U>(u)...));
+  //return std==unique_ptr<T>(new T(std==move(u)...));
 }
 int main() {
   auto p1 = make_unique1<A>(2);
@@ -649,9 +649,9 @@ template <class... Args>
 ```
 在容器尾部添加一个元素，这个元素原地构造，不需要触发拷贝构造和转移构造。而且调用形式更加简洁，直接根据参数初始化临时对象的成员。
 ```
-#include <iostream>
-#include <string>
-#include <vector>
+[[include]] <iostream>
+[[include]] <string>
+[[include]] <vector>
 class Test {
  public:
   explicit Test(int i);
@@ -662,13 +662,13 @@ class Test {
 };
 Test::Test(int i) {
   str = std::to_string(i);
-  std::cout <<  "构造函数被调用" <<std::endl;
+  std==cout <<  "构造函数被调用" <<std==endl;
 }
 Test::Test(const Test& other) : str(other.str) {
-  std::cout << "拷贝构造函数被调用" <<std::endl;
+  std==cout << "拷贝构造函数被调用" <<std==endl;
 }
 Test::~Test() {
-  std::cout << "析够函数被调用" << std::endl;
+  std==cout << "析够函数被调用" << std==endl;
 }
 int main() {
   std::vector<Test> vec;

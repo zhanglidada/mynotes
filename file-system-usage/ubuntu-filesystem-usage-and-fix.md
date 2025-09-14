@@ -1,4 +1,4 @@
-#linux文件系统以及磁盘分区问题
+[[linux文件系统以及磁盘分区问题]]
 ##关于linux显示磁盘read-only file system问题：
 其实就是磁盘超级块损坏：
 ###解决方案：

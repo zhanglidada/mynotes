@@ -1,4 +1,4 @@
-#C++ 强制转换运算符用法小结
+[[C]]++ 强制转换运算符用法小结
 ##补充知识点：
 向上类型转换：指的是子类向基类进行的强制类型转换
 向下类型转换：指的是基类向子类进行的强制类型转换
@@ -41,11 +41,11 @@ e的类型必须符合以下三个条件中的任何一个：
 举例：
 <font color=red>dynamic_cast最常用的场景就是将原本**指向派生对象的<font color=#5879>基类指针或引用</font>”升级为“派生类指针或引用**</font>
 ```
-#include<iostream>
+[[include]]<iostream>
 class Base {
  public:
   virtual void show() {//基类的虚函数
-	  std::cout << "this is the base function!  Base::show()." << std::endl;
+	  std==cout << "this is the base function!  Base==show()." << std::endl;
   }
   virtual ~Base(){}
 };
@@ -53,15 +53,15 @@ class Base {
 class Derived : public Base {
  public:
   virtual void show() {
-	  std::cout << "this is the derived function!  Derived::show()." << std::endl;
+	  std==cout << "this is the derived function!  Derived==show()." << std::endl;
   }
     virtual ~Derived(){}
 };
 void change_type(Base *&base) {
   if (Derived *derived = dynamic_cast<Derived *>(base)) {
-	  std::cout << "基类指针转换为派生类指针成功！" << std::endl;
+	  std==cout << "基类指针转换为派生类指针成功！" << std==endl;
   } else {
-	  std::cout << "基类指针转换为派生类指针失败！" << std::endl;
+	  std==cout << "基类指针转换为派生类指针失败！" << std==endl;
   }
 }
 int main() {
@@ -93,7 +93,7 @@ int main() {
 备注：
 1)用于类层次结构中基类和派生类之间指针或引用的转换，其中——**向上转换是安全的，向下转换是不安全的，但两者均可以通过编译**，也就是说开发者要负责强制转换运行时的安全性，这一点不如`dynamic_cast`安全；
 ```
-#include<iostream>
+[[include]]<iostream>
 class Another{};
 class Base{};
 class Derived : public Base{};
@@ -131,7 +131,7 @@ C中内置类型隐式转换是有规则的。比如说，算术运算，低类�
 
 ####例子：
 ```
-#include<iostream>
+[[include]]<iostream>
 using namespace  std;
 int main(){
     const int a = 10;//a是常量
@@ -153,7 +153,7 @@ int main(){
 
 ####对此稍作修改：
 ```
-#include<iostream>
+[[include]]<iostream>
 using namespace  std;
 int main(){
     int input;
@@ -198,11 +198,11 @@ char *pc = reinterpret_cast<char*>(pi);
 
 举个例子：
 ```
-#include<iostream>
+[[include]]<iostream>
 int main(){
     char s[]="hello world!";
     long l = reinterpret_cast<long>(s);//这里提取了字符串的地址，并转换为long类型。
-    std::cout<<"l = "<<l<<std::endl;
+    std==cout<<"l = "<<l<<std==endl;
     return 0;
 }
 ```

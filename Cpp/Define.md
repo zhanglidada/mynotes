@@ -1,9 +1,9 @@
-#C/C++ define用法详解
+[[C/C]]++ define用法详解
 ![5](/assets/5.png)
 ##1.预处理代码：
 预处理代码，即在代码编译之前就被提前处理，这在C语言中，是一个非常强大的工具。利用预处理代码，可以重新定义代码的一部分，使得代码更适合自己的风格。预处理代码均由一个井号(#)开头。
 ###define总览：
-c语言中用到很多宏定义 ，为了头文件被重复使用，常常用到`#ifndef  #define #endif`,`#ifdef  #endif`等条件编译
+c语言中用到很多宏定义 ，为了头文件被重复使用，常常用到`#ifndef  [[define]] [[endif]]`,`#ifdef  [[endif]]`等条件编译
 
 **宏不是语句，结尾不用加“；”，否则会被替换进代码中**
 
@@ -28,7 +28,7 @@ c语言中用到很多宏定义 ，为了头文件被重复使用，常常用到
 在字符串中含有各个形参。在使用时调用带参宏调用的一般形式为：宏名(实参表)；
 例如：
 ```
-#define add(x, y)  (x + y)
+[[define]] add(x, y)  (x + y)
 int main()
 {
     cout << "1 plus 1 is " << add(1, 1.5) << ".\n";
@@ -45,8 +45,8 @@ int main()
 
 4）宏定义也可以定义表达式或者多个语句：
 ```
-#include<stdio.h>
-#define AB(a,b) a=i+5;b=j+3;   //宏定义多个语句
+[[include]]<stdio.h>
+[[define]] AB(a,b) a=i+5;b=j+3;   //宏定义多个语句
 int main(){
 	int i=3,j=5;
 	int m=0,n=0;
@@ -64,8 +64,8 @@ int main(){
 
 例如，如果`x`是一个宏参量，那么`#x`可以把参数名转化成相应的字符串。该过程称为字符串化。例如：
 ```
-#incldue <stdio.h>
-#define PSQR(x) printf("the square of" #x "is %d.\n",(x)*(x))
+[[incldue]] <stdio.h>
+[[define]] PSQR(x) printf("the square of" [[x]] "is %d.\n",(x)*(x))
 int main(void)
 {
     int y =4;
@@ -80,9 +80,9 @@ int main(void)
 "##"运算符可以用于类函数宏的替换部分。另外，"##"还可以用于类对象宏的替换部分。**##运算符把*两个语言符号*组合成*单个语言符号*。**
 例如：
 ```
-#include<stdio.h>
-#define XNAME(n) x##n //x##n被组成单个语言符号xn
-#define PXN(n) printf("x"#n" = %d\n",x##n)
+[[include]]<stdio.h>
+[[define]] XNAME(n) x##n //x##n被组成单个语言符号xn
+[[define]] PXN(n) printf("x"#n" = %d\n",x##n)
 int main(){
 	int i=6;
 	int XNAME(i) = 12;//定义一个变量xi并赋值
@@ -96,7 +96,7 @@ __VA_ARGS__ 是一个可变参数的宏，很少人知道这个宏，这个可�
 实现思想就是宏定义中参数列表的最后一个参数为省略号（也就是三个点）。这样预定义宏__VA_ARGS__就可以被用在替换部分中，替换省略号所代表的字符串。
 例如：
 
-	#define PR(...) printf(__VA_ARGS__)
+	[[define]] PR(...) printf(__VA_ARGS__)
 	int main()
 	{
 	    int wt=1,sp=2;
@@ -120,7 +120,7 @@ __VA_ARGS__ 是一个可变参数的宏，很少人知道这个宏，这个可�
 ###4.宏定义中的多行定义
 这种方法经常使用：
 
-	#define MACRO(arg1, arg2) do { \
+	[[define]] MACRO(arg1, arg2) do { \
 	/* declarations */ \
 	stmt1; \
 	stmt2; \
@@ -133,39 +133,39 @@ __VA_ARGS__ 是一个可变参数的宏，很少人知道这个宏，这个可�
 ###5.宏定义中的条件编译
 1).在大规模的开发过程中，特别是跨平台和系统的软件里，**define最重要的功能是条件编译。**
 
-	#ifdef WINDOWS
+	[[ifdef]] WINDOWS
 	......
 	(#else)
 	......
-	#endif
+	[[endif]]
 
-	#ifdef LINUX
+	[[ifdef]] LINUX
 	......
 	(#else)
 	......
-	#endif
+	[[endif]]
 可以在编译的时候通过#define设置编译环境。
 2).#if的使用说明
 \#if的后面接的是表达式
 
-	#if (MAX==10)||(MAX==20)
+	[[if]] (MAX==10)||(MAX==20)
 	 code...
-	#endif
-它的作用是：如果(MAX==10)||(MAX==20)成立，那么编译器就会把其中的#if 与 #endif之间的代码编译进去<font color=red>（注意：是编译进去，不是执行！！）</font>
+	[[endif]]
+它的作用是：如果(MAX==10)||(MAX==20)成立，那么编译器就会把其中的#if 与 [[endif之间的代码编译进去]]<font color=red>（注意：是编译进去，不是执行！！）</font>
 
 3).#if defined的使用:
 \#if后面接的是一个宏。
 
-	#if defined (x)
+	[[if]] defined (x)
 	    ...code...
-	#endif
+	[[endif]]
 这个#if defined它不管里面的“x”的逻辑是“真”还是“假”,它只管这个程序的前面的宏定义里面有没有定义“x”这个宏，如果定义了x这个宏，那么，编译器会编译中间的…code…否则直接忽视中间的…code…代码。
 
-4).另外 #if defined(x)也可以取反，也就用 #if !defined(x)
+4).另外 [[if]] defined(x)也可以取反，也就用 [[if]] !defined(x)
 
-	#if !defined (x)
+	[[if]] !defined (x)
 	    ...code...
-	#endif
+	[[endif]]
 这里，用法刚好和上面相反。即只要上面没有定义宏x，那么编译...code...这些代码，否则忽略。
 
 5).#ifdef的使用:
@@ -178,9 +178,9 @@ __VA_ARGS__ 是一个可变参数的宏，很少人知道这个宏，这个可�
 ###6.如何取消宏
 
 	//定义宏
-	#define [MacroName]  [MacroValue]
+	[[define]] [MacroName]  [MacroValue]
 	//取消宏
-	#undef [MacroName]
+	[[undef]] [MacroName]
 
 ###7.常用的宏定义使用：
 1).防止头文件被重复包含：
@@ -188,45 +188,45 @@ __VA_ARGS__ 是一个可变参数的宏，很少人知道这个宏，这个可�
 通过条件编译开关来避免重复包含（重复定义）
 例如：
 
-	#ifndef __HEAD_FILE__
-	#define __HEAD_FILE__
+	[[ifndef]] __HEAD_FILE__
+	[[define]] __HEAD_FILE__
 	…
 	文件内容
 	…
-	#endif
+	[[endif]]
 
 2).得到一个制定地址上的一个字节或字
 
-	#define MEM_B(X) (*((byte*)(x)))
-	#define MEM_W(X) (*((word*)(x)))
+	[[define]] MEM_B(X) (*((byte*)(x)))
+	[[define]] MEM_W(X) (*((word*)(x)))
 3).求最大值与最小值
 
-	#define MAX(x,y)  ((x)>(y)?(x):(y))
-	#define MIN(x,y)  ((x)<(y)?(x):(y))
+	[[define]] MAX(x,y)  ((x)>(y)?(x):(y))
+	[[define]] MIN(x,y)  ((x)<(y)?(x):(y))
 4).得到一个结构体中field所占用的字节数
 
-	#define FSIZ(type,field)  sizeof(((type*)0)->field)
+	[[define]] FSIZ(type,field)  sizeof(((type*)0)->field)
 5).得到一个field在结构体中的偏移量
 
-	#define FPOS(type,field)\                    //使用宏定义的换行符
+	[[define]] FPOS(type,field)\                    //使用宏定义的换行符
 	 ((dword)&(((type*)0)->field)
 6).按照LSB格式把两个字节转化为一个word
 
-	#define FLIPW(ray) (((word)(ray)[0]*256)+(ray)[1])
+	[[define]] FLIPW(ray) (((word)(ray)[0]*256)+(ray)[1])
 7).按照LSB格式将一个WORD转化为两个字节
 
-	#define FLOPW(ray,val)  (ray)[0]=((val)/256);(ray)[1]=((val)&0xFF)
+	[[define]] FLOPW(ray,val)  (ray)[0]=((val)/256);(ray)[1]=((val)&0xFF)
 8).得到一个变量的地址
 
-	#define B_PTR(var) ((byte*)(void*)&(var))
-	#define W_PTR(var) ((word*)(void*)&(var))
+	[[define]] B_PTR(var) ((byte*)(void*)&(var))
+	[[define]] W_PTR(var) ((word*)(void*)&(var))
 9).得到一个字的高位与低位字节
 
-	#define WORD_LO(xxx) ((byte)((word)(xxx)&255))      //和低八位相与，转换为一个字节(八位)
-	#define WORD_HI(xxx) ((byte)((word)(xxx)>>8))       //右移八位，即丢弃高八位。
+	[[define]] WORD_LO(xxx) ((byte)((word)(xxx)&255))      //和低八位相与，转换为一个字节(八位)
+	[[define]] WORD_HI(xxx) ((byte)((word)(xxx)>>8))       //右移八位，即丢弃高八位。
 10).用宏得到一个数组所含的元素个数
 
-	#define ARR_SIZE(a) (sizeof(a)/sizeof((a)[0]))
+	[[define]] ARR_SIZE(a) (sizeof(a)/sizeof((a)[0]))
 
 ##3.小结及说明
 1) 宏定义是用宏名来表示一个字符串，**在宏展开时又以该字符串取代宏名**，这只是一种简单的代换，字符串中可以含任何字符，可以是常数，也可以是表达式，
@@ -238,15 +238,15 @@ __VA_ARGS__ 是一个可变参数的宏，很少人知道这个宏，这个可�
 5) 宏定义允许嵌套，在宏定义的字符串中可以使用已经定义的宏名。在宏展开时由预处理程序层层代换。
 例如：
 
-	 #define PI 3.1415926
-	 #define S PI*y*y          /* PI是已定义的宏名*/
+	 [[define]] PI 3.1415926
+	 [[define]] S PI*y*y          /* PI是已定义的宏名*/
 6) 习惯上宏名用大写字母表示，以便于与变量区别。但也允许用小写字母。
 7) 可用宏定义表示数据类型，使书写方便。
 应注意用宏定义表示数据类型和用typedef定义数据说明符的区别:
 **宏定义只是简单的字符串代换，是在预处理完成的，而typedef是在编译时处理的，它不是作简单的代换，而是对类型说明符重新命名。被命名的标识符具有类型定义说明的功能。**
 请看下面的例子：
 
-	#define PIN1 int *
+	[[define]] PIN1 int *
 	typedef (int *) PIN2;
 从形式上看这两者相似， 但在实际使用中却不相同。
 下面用PIN1，PIN2说明变量时就可以看出它们的区别：
@@ -261,9 +261,9 @@ __VA_ARGS__ 是一个可变参数的宏，很少人知道这个宏，这个可�
 8) 对“输出格式”作宏定义，可以减少书写麻烦。
 例如：
 
-	#define P printf
-	#define D "%d\n"
-	#define F "%f\n"
+	[[define]] P printf
+	[[define]] D "%d\n"
+	[[define]] F "%f\n"
 	int main(){
 	  int a=5, c=8, e=11;
 	  float b=3.8, d=9.7, f=21.08;

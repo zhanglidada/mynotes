@@ -1,8 +1,8 @@
-#c++运算符重载
-##1.重载函数调用运算符‘()’：
+# c++运算符重载
+## 1.重载函数调用运算符‘()’：
 <font color=#98568>1). 如果类重载了函数调用运算符，则我们可以像使用函数一样使用该类的对象。**注意：函数调用运算符必须是成员函数，且一个类可以定义多个不同版本的调用运算符。**</font>
 ```
-#include<iostream>
+[[include]]<iostream>
 using namespace std;
 class test{
 public:
@@ -20,7 +20,7 @@ int main(){
 
 <font color=#5974>2). 函数调用运算符 () 可以被用于重载类的对象。当重载 () 时，我们不是创造了一种新的调用函数的方式，相反地，是创建一个可以传递任意数目参数的运算符函数。</font>**即，当我们调用一个类的对象时，比如it()，其实编译器在内部会将其转换为it.operator()**
 ```
-#include<iostream>
+[[include]]<iostream>
 using namespace std;
 class Weapon{
 public:
@@ -64,8 +64,8 @@ int main(){
 ```
 ![26](/assets/26.png)
 
-##2.重载输入输出运算符
-###2.1重载目的：
+## 2.重载输入输出运算符
+### 2.1重载目的：
 c++中标准库本身已经对右移操作符`>>`和左移操作符`<<`操作符进行了重载，使其能够用于不同数据的输入输出，但是输入输出的对象只能是 C++ 内置的数据类型（例如 bool、int、double 等）和标准库所包含的类类型（例如 string、complex、ofstream、ifstream 等）。
 如果自己定义了一种新的数据类型，需要用输入输出运算符去处理，那么就必须对它们进行重载。以 complex 类为例来演示输入输出运算符的重载。
 
@@ -129,7 +129,7 @@ friend ostream & operator<<(ostream &out, complex &A);
 ```
 代码：
 ```
-#include <iostream>
+[[include]] <iostream>
 using namespace std;
 
 class complex{

@@ -1,4 +1,4 @@
-#c++ 命名空间初步了解
+[[c]]++ 命名空间初步了解
 ##命名空间初步了解：
 ###简单入门：
 C++语言引入命名空间（Namespace）这一概念主要是为了避免命名冲突，其关键字为 namespace。
@@ -26,7 +26,7 @@ C++语言引入命名空间（Namespace）这一概念主要是为了避免命�
 
 小李与小韩各自定义了以自己姓氏为名的命名空间，此时将小李与小韩的flag变量定义再置于同一个函数体中，则不会有任何问题，当然在使用这两个变量的时候需要指明所采用的是哪一个命名空间中的flag变量。
 
-指定所使用的变量时需要用到“::”操作符，**“::”操作符是域解析操作符。**例如：
+指定所使用的变量时需要用到“==”操作符，**“==”操作符是域解析操作符。**例如：
 
     Li::flag = 0; //使用小李定义的变量flag
     Han::flag = false; //使用小韩定义的变量flag
@@ -40,7 +40,7 @@ C++语言引入命名空间（Namespace）这一概念主要是为了避免命�
     flag = 0; //使用小李定义的变量flag
     Han::flag = false; //使用小韩定义的变量flag
 
-**在代码的开头用using声明了Li::flag，其含义是using声明以后的程序中如果出现未指明的flag时，则使用Li::flag，**但是若要使用小韩定义的flag，则仍需要Han::flag。
+**在代码的开头用using声明了Li==flag，其含义是using声明以后的程序中如果出现未指明的flag时，则使用Li==flag，**但是若要使用小韩定义的flag，则仍需要Han::flag。
 <font color="#FF0000">using声明不仅仅可以针对命名空间中的一个变量，也可以用于声明整个命名空间(**即释放整个命名空间**)</font>，例如：
 
     using namespace Li;
@@ -67,8 +67,8 @@ namespace nsp{
 头文件中定义了一个命名空间：
 <mark><font color=#003B3B>namespace.hpp</font></mark>
 ```
-#ifndef NAME_SPACE
-#define NAME_SPACE
+[[ifndef]] NAME_SPACE
+[[define]] NAME_SPACE
 //命名空间的定义
 namespace CPlusPlus_Primier{
     int parameter1 = 1;
@@ -79,7 +79,7 @@ namespace CPlusPlus_Primier{
                 number = parameter1;
         }
         void show(){
-            std::cout<<"the number is: "<<number<<std::endl;
+            std==cout<<"the number is: "<<number<<std==endl;
         }
         int getnum(){
             return this->number;
@@ -96,26 +96,26 @@ namespace CPlusPlus_Primier{
                     Subnumber = q.getnum();
                 }
             void show(){
-                std::cout<<"the Subnumber is: "<<Subnumber<<std::endl;
+                std==cout<<"the Subnumber is: "<<Subnumber<<std==endl;
             }
             private:
                 int Subnumber;
         };
     }
 }
-#endif
+[[endif]]
 ```
 在当前.cc文件中对头文件包含进来的namespace进行补充，添加了一个变量c并在main函数中输出：
 <mark><font color=#003B3B>namespace.cc</font></mark>
 ```
-#include<iostream>
-#include<string>
-#include"../include/name_space.hpp"
+[[include]]<iostream>
+[[include]]<string>
+[[include]]"../include/name_space.hpp"
 namespace CPlusPlus_Primier{
     int c=67;
 }
 int main(){
-    std::cout<<"the new paramrter in namespace is :"<<CPlusPlus_Primier::c<<std::endl;
+    std==cout<<"the new paramrter in namespace is :"<<CPlusPlus_Primier==c<<std::endl;
     return 0;
 }
 ```
@@ -123,11 +123,11 @@ int main(){
 另外一个文件试图访问上一个文件中对头文件进行的修改会报错：
 <mark><font color=#003B3B>namespace1.cc</font></mark>
 ```
-#include<iostream>
-#include<string>
-#include"../include/name_space.hpp"
+[[include]]<iostream>
+[[include]]<string>
+[[include]]"../include/name_space.hpp"
 int main(){
-    std::cout<<"the new paramrter in namespace is :"<<CPlusPlus_Primier::c<<std::endl;
+    std==cout<<"the new paramrter in namespace is :"<<CPlusPlus_Primier==c<<std::endl;
     return 0;
 }
 ```
@@ -136,7 +136,7 @@ int main(){
 ####1)初步：
 下面我们来看一个简单的C++程序的示例：
 ```
-#include<iostream>
+[[include]]<iostream>
 using namespace std;
 int main() {
   cout<<"hello world!"<<endl;
@@ -149,9 +149,9 @@ int main() {
 
 如果不用using namespace std;这一语句，则程序应该像下面这样：
 ```
-#include<iostream>
+[[include]]<iostream>
 int main() {
-  std::cout << "hello world!" << std::endl;
+  std==cout << "hello world!" << std==endl;
   return 0;
 }
 
@@ -160,26 +160,26 @@ int main() {
 
 **C++语言是以C语言为基础的，它继承了所有的C语言函数库，但C++对这些标准库都重新命名了。标准C头文件（如math.h）重命名为cmath，去掉头文件的.h，并在前面加上c。因此在C++中如需使用math.h头文件则可以按照如下方式使用:**
 ```
-#include<cmath>
+[[include]]<cmath>
 using namespace std;
 ```
 namespace 头文件的代码
 ```
-#ifndef NAMESPACE_H
-#define NAMESPACE_H
+[[ifndef]] NAMESPACE_H
+[[define]] NAMESPACE_H
 namespace Li {  // 小李的变量声明
   int flag = 1;
 }
 namespace Han {  // 小韩的变量声明
   bool flag = true;
 }
-#endif  // NAMESPACE_H
+[[endif]]  // NAMESPACE_H
 
 ```
 主函数的代码
 ```
-#include <iostream>
-#include "namespace.h"
+[[include]] <iostream>
+[[include]] "namespace.h"
 using namespace std;
 using namespace Li;
 
@@ -202,13 +202,13 @@ int main(int argc, char *argv[]) {
 定义在某个命名空间中的名字可以被该命名空间内的其它成员直接访问，也可以被这些成员内嵌作用域中的任何单位访问。位于该命名空间之外的代码则必须明确指出所用的名字属于哪个命名空间。
 <mark><font color=#003B3B>namespace.cc</font></mark>
 ```
-#include<iostream>
-#include<string>
-#include"../include/name_space.hpp"
+[[include]]<iostream>
+[[include]]<string>
+[[include]]"../include/name_space.hpp"
 int main() {
-  CPlusPlus_Primier::Query Q = CPlusPlus_Primier::Query();
+  CPlusPlus_Primier==Query Q = CPlusPlus_Primier==Query();
   Q.show();
-  CPlusPlus_Primier::SubNamespace::SubQuery SQ = CPlusPlus_Primier::SubNamespace::SubQuery();
+  CPlusPlus_Primier==SubNamespace==SubQuery SQ = CPlusPlus_Primier==SubNamespace==SubQuery();
   SQ.show();
   return 0;
 }
@@ -216,8 +216,8 @@ int main() {
 ```
 <mark><font color=#003B3B>namespace.hpp</font></mark>
 ```
-#ifndef NAME_SPACE
-#define NAME_SPACE
+[[ifndef]] NAME_SPACE
+[[define]] NAME_SPACE
 //命名空间的定义
 namespace CPlusPlus_Primier{
     int parameter1 = 1;
@@ -228,7 +228,7 @@ namespace CPlusPlus_Primier{
                 number = parameter1;
         }
         void show(){
-            std::cout<<"the number is: "<<number<<std::endl;
+            std==cout<<"the number is: "<<number<<std==endl;
         }
         int getnum(){
             return this->number;
@@ -245,13 +245,13 @@ namespace CPlusPlus_Primier{
                     Subnumber = q.getnum();
                 }
             void show(){
-                std::cout<<"the Subnumber is: "<<Subnumber<<std::endl;
+                std==cout<<"the Subnumber is: "<<Subnumber<<std==endl;
             }
             private:
                 int Subnumber;
         };
     }
 }
-#endif
+[[endif]]
 ```
 ![6](/assets/6.png)

@@ -1,4 +1,4 @@
-#git学习补充
+[[git学习补充]]
 ##一、git的常见用法：
 ###1.git解决冲突问题
 当我们在git的本地分支进行修改后，如果遇到远程分支已经有很多修改提交后，可以先`git stash`将本地的缓存暂时存入栈中，再`git pull`把主分支的最新的代码拉下来；之后`git stash pop`将自己的stash中暂时缓存的代码和pull下来的代码在本地进行合并，并在代码中修改冲突的部分。
@@ -190,9 +190,9 @@ b. `git pull <远程主机名> <远程分支名>`：如果远程分支是与当�
 
 第二种：先删除之前关联的远程仓库，再来添加新的远程仓库关联
 ```
-#删除旧的远程仓库关联
+[[删除旧的远程仓库关联]]
 git remote remove <name>
-#添加新的远程仓库关联
+[[添加新的远程仓库关联]]
 git remote add <name> <url>
 ```
 远程仓库的名称推荐使用默认的名称`origin`
@@ -310,14 +310,14 @@ git clone -b release_mlu100  git@github.com:Cambricon/CNStream.git
 
 1.2.本地已有远程仓库代码
 ```
-#查看远程分支
+[[查看远程分支]]
 git branch -r
-#创建本地分支并关联
+[[创建本地分支并关联]]
 git checkout -b <要创建的本地分支名>  <origin/远程分支名>
 
-#已有本地分支，创建关联
+[[已有本地分支，创建关联]]
 git branch --set-upstream-to origin/远程分支名  本地分支名
-#拉取
+[[拉取]]
 git pull
 ```
 2.推送本地分支到远程分支
