@@ -12,3 +12,5 @@ MRU(most recently used)。该算法与LRU相反，当缓存中的空间不足时
 ###3.ORACLE中常用的数据缓存机制
 **LRU链：**
 oracle在数据的高速缓冲中使用了LRU链，分为热端和冷端。
+
+
