@@ -5,6 +5,6 @@
 
 # 二、常用公式
 
-1.数学模式重音符
+https://blog.csdn.net/qq_17280559/article/details/150762536
 
 
