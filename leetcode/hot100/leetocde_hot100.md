@@ -788,6 +788,241 @@ return res;
 如果我们依次递增地枚举子串的起始位置，那么子串的结束位置也是递增的！假设我们选择字符串中的第 k 个字符作为起始位置，并且得到了不包含重复字符的最长子串的结束位置为$r_{k}$，那么那么当我们选择第 k+1 个字符作为起始位置时，首先从 k+1 到​$r_{k}$位置的字符显然是不重复的，并且由于少了原本的第 k 个字符，我们可以尝试继续增大到​$r_{k}$后的位置，直到右侧出现了重复字符为止。
 
 
+这样一来，我们就可以使用「滑动窗口」来解决这个问题了：
+
+- 我们使用两个指针表示字符串中的某个子串（或窗口）的左右边界，其中左指针代表着上文中「枚举子串的起始位置」，而右指针即为上文中的​$r_{k}$
+
+- 在每一步的操作中，我们会将左指针向右移动一格，表示 我们开始枚举下一个字符作为起始位置，然后我们可以不断地向右移动右指针，但需要保证这两个指针对应的子串中没有重复的字符。在移动结束后，这个子串就对应着 以左指针开始的，不包含重复字符的最长子串。我们记录下这个子串的长度；
+
+- 在枚举结束后，我们找到的最长的子串的长度即为答案。
+
+```
+// 双层循环遍历
+
+class Solution {
+
+  public:
+
+    int lengthOfLongestSubstring(string s) {
+
+      int max_size = 0;
+
+  
+
+      if (s.empty())
+
+        return 0;
+
+  
+
+      if (s.size() == 1)
+
+        return 1;
+
+  
+
+      for (int i = 0; i < s.size(); i++) {
+
+        unordered_set<int> hash_set;
+
+        int curr_count = 0;
+
+  
+
+        for (int j = i; j < s.size(); j++) {
+
+          if (!hash_set.count(s[j])) {
+
+            hash_set.insert(s[j]);
+
+            curr_count ++;
+
+          }
+
+          else
+
+          {
+
+            // 当前子串中存在重复元素，跳出循环
+
+            break;
+
+          }
+
+        }
+
+  
+
+        max_size = max(curr_count, max_size);
+
+      }
+
+      return max_size;
+
+    }
+
+};
+
+  
+
+// 使用滑动窗口进行优化，时间复杂度为 2n
+
+class Solution1 {
+
+  public:
+
+    int lengthOfLongestSubstring(string s) {
+
+      // 左右指针，表示当前的窗口
+
+      int left = 0, right = 0;
+
+      int curr_count = 0;
+
+      unordered_set<int> hash_set;
+
+      int max_size = 1;
+
+  
+
+      if (s.empty())
+
+        return 0;
+
+  
+
+      if (s.size() == 1)
+
+        return 1;
+
+  
+
+      for (left = 0; left < s.size(); left ++) {
+
+  
+
+        while (right < s.size() && hash_set.count(s[right]) == 0) {
+
+          hash_set.insert(s[right]);
+
+  
+
+          // 右指针继续向后移动
+
+          right ++;
+
+        }
+
+  
+
+        max_size = max(max_size, right - left);
+
+  
+
+        if (right == s.size())
+
+          return max_size;
+
+  
+
+        // 将左指针指向的元素从hash_set中删除，左指针的下一个位置为滑动窗口的起始位置
+
+        hash_set.erase(s[left]);
+
+      }
+
+      return max_size;
+
+    }
+
+};
+
+  
+  
+
+/*
+
+  滑动窗口进一步优化：
+
+  
+
+  startsubstr为每个可能的子串的开始位置
+
+  hashchar中存放的是遍历过程中字符最近一次出现的位置
+
+  针对滑动窗口的优化，对于重复出现的字符，如果大于startsubstr，则从startsubstr下一个开始进行滑动
+
+*/
+
+class Solution2 {
+
+ public:
+
+  int lengthOfLongestSubstring(string s) {
+
+    unordered_map<char, int> hashchar;
+
+    if (s.size() == 0)  return 0;
+
+    int currentLen = 0, maxLen = 0, startsubstr = 0;
+
+    for (int i = 0; i < s.size(); i++) {
+
+      // 对一个子数组中第一次访问的元素进行插入
+
+      if (hashchar.count(s[i]) == 0)  hashchar[s[i]] = i, currentLen++;
+
+      else {
+
+        // 子串中出现第一个重复的字符
+
+        maxLen = max(maxLen, currentLen);
+
+        startsubstr = max(hashchar[s[i]], startsubstr);
+
+        currentLen = i - startsubstr;
+
+        hashchar[s[i]] = i;
+
+      }
+
+    }
+
+    maxLen = max(maxLen, currentLen);
+
+    return maxLen;
+
+  }
+
+};
+```
 
 
+[438. 找到字符串中所有字母异位词](https://leetcode.cn/problems/find-all-anagrams-in-a-string/)
+
+给定两个字符串 `s` 和 `p`，找到 `s` 中所有 `p` 的 **异位词** 的子串，返回这些子串的起始索引。不考虑答案输出的顺序。
+
+**示例 1:**
+
+**输入:** s = "cbaebabacd", p = "abc"
+**输出:** [0,6]
+**解释:**
+起始索引等于 0 的子串是 "cba", 它是 "abc" 的异位词。
+起始索引等于 6 的子串是 "bac", 它是 "abc" 的异位词。
+
+ **示例 2:**
+
+**输入:** s = "abab", p = "ab"
+**输出:** [0,1,2]
+**解释:**
+起始索引等于 0 的子串是 "ab", 它是 "ab" 的异位词。
+起始索引等于 1 的子串是 "ba", 它是 "ab" 的异位词。
+起始索引等于 2 的子串是 "ab", 它是 "ab" 的异位词。
+
+**提示:**
+
+- `1 <= s.length, p.length <= 3 * 104`
+- `s` 和 `p` 仅包含小写字母
+
+解题思路：
 
