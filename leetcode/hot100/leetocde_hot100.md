@@ -1025,4 +1025,241 @@ class Solution2 {
 - `s` 和 `p` 仅包含小写字母
 
 解题思路：
+最容易想到的就是使用hash表，先对子串使用一个hash表记录所有字符以及每个字符的个数。接着从前向后遍历原串，如果当前字符在子串中存在就继续访问下一个字符，否则开始位置递增，但是这题用hash表其实不好。
+
+**因为因为字符串 p 的异位词的长度一定与字符串 p 的长度相同**，所以我们可以==在字符串 s 中构造一个长度与字符串 p 的长度相同的滑动窗口==，并在滑动中维护窗口中每种字母的数量，当窗口中每种字母的数量与字符串 p 中每种字母的数量相同时，则说明当前窗口为字符串 p 的异位词。
+
+```
+class Solution {
+
+  public:
+
+    vector<int> findAnagrams(string s, string p) {
+
+      int slen = s.length();
+
+      int plen = p.length();
+
+      vector<int> res;
+
+      vector<int> scount(26);
+
+      vector<int> pcount(26);
+
+  
+
+      if (slen < plen)
+
+        return res;
+
+  
+
+      // 构造第一个滑动窗口
+
+      for (int i = 0; i < plen; i++) {
+
+        scount[s[i] - 'a'] ++;
+
+        pcount[p[i] - 'a'] ++;
+
+      }
+
+  
+
+      // s的第一个窗口就和p互为异位串
+
+      if (scount == pcount)
+
+        res.emplace_back(0);
+
+  
+
+      // 从第一个元素开始滑动窗口,最后一个窗口的起始位置是 （slen - plen + 1）
+
+      for (int i = 1; i < (slen - plen + 1); i++) {
+
+        scount[s[i - 1] - 'a'] --;
+
+        scount[s[i - 1 + plen] - 'a'] ++;
+
+  
+
+        if (scount == pcount)
+
+          res.emplace_back(i);
+
+      }
+
+      return res;
+
+    }
+
+};
+```
+
+
+[560. 和为 K 的子数组](https://leetcode.cn/problems/subarray-sum-equals-k/)
+
+给你一个整数数组 `nums` 和一个整数 `k` ，请你统计并返回 _该数组中和为 `k` 的子数组的个数_ 。
+
+子数组是数组中元素的连续非空序列。
+
+**示例 1：**
+
+输入：nums = [1,1,1], k = 2
+输出：2
+
+**示例 2**
+
+输入：nums = [1,2,3], k = 3
+输出：2
+
+**提示：**
+
+- `1 <= nums.length <= 2 * 104`
+- `-1000 <= nums[i] <= 1000`
+- `-107 <= k <= 107`
+
+解题思路：
+1）最容易想到的就是暴力解法。
+
+考虑以i结尾，元素和为k 的连续子数组的个数，我们需要统计符合条件的下标 j 的个数，其中 0≤j≤i 且 [ j .. i ] 这个子数组的和恰好为 k 。
+
+我们可以枚举 [ 0..i ] 里所有的下标 j 来判断是否符合条件，可能有读者会认为假定我们确定了子数组的开头和结尾，还需要 O(n) 的时间复杂度遍历子数组[ j .. i ]来求和，那样复杂度就将达到 O(n^3) 从而无法通过所有测试用例。但是如果我们知道 [j,i] 子数组的和，就能 O(1) 推出 [ j−1,i ] 的和，因此这部分的遍历求和是不需要的，我们在枚举下标 j 的时候已经能 O(1) 求出 [ j,i ] 的子数组之和。
+
+```
+// 暴力枚举所有子串并计算连续子串和是否为k
+
+// leetcode 执行的时候还需要做优化才能通过
+
+class Solution {
+
+  public:
+
+    int subarraySum(vector<int>& nums, int k) {
+
+      int count = 0;
+
+      int sum = 0;
+
+      int n = nums.size();
+
+      int arr[n];
+
+  
+
+      if (!n)
+
+        return 0;
+
+  
+
+      for (int i = 0; i < n; i++) {
+
+        arr[i] = nums[i];
+
+      }
+
+  
+
+      for (int i = 0; i < n; i++) {
+
+  
+
+        sum = 0;
+
+  
+
+        // 对每个i结尾的串，向前遍历直到开始位置，查找是否存在连续子串其和为k
+
+        for (int j = i; j >= 0; j--) {
+
+          sum += nums[j];
+
+  
+
+          if (sum == k)
+
+            count ++;
+
+        }
+
+      }
+
+      return count;
+
+    }
+
+};
+```
+
+2）使用 **前缀和 + hash表** 进行优化
+
+我们定义 pre[i] 为 [0..i] 里所有数的和，则 pre[i] 可以由 pre[i−1] 递推而来，即：
+
+pre[i] = pre[i−1]+nums[i]
+
+那么[j..i] 这个子数组和为 k 这个条件我们可以转化为：
+
+pre[i]−pre[j−1] = = k
+
+简单移项可得符合条件的下标 j 需要满足
+
+pre[j−1] = = pre[i]−k
+
+所以我们考虑以 i 结尾的和为 k 的连续子数组个数时只要统计有多少个前缀和，其值为
+pre[i]−k 即可。我们建立哈希表 mp，以和为键，出现次数为对应的值，记录 pre[i] 出现的次数，从左往右边更新 mp 边计算答案，那么以 i 结尾的答案 mp[pre[i]−k]，即可在 O(1) 时间内得到。最后的答案即为所有下标结尾的和为 k 的子数组个数之和。
+
+```
+class Solution1 {
+
+  public:
+
+    int subarraySum(vector<int>& nums, int k) {
+
+  
+
+      int count = 0;
+
+      int pre = 0;
+
+      unordered_map<int, int> map;
+
+  
+
+      map[0] = 1;
+
+  
+
+      for (auto num : nums) {
+
+        pre += num;
+
+  
+
+        // 当前位置i为结束位置, 距离其k的位置j如果在map中存在，表示从j开始到i为止，子串之和为k
+
+        if (map.find(pre - k) != map.end())
+
+          count += map[pre - k];
+
+  
+
+          // 从0开始到当前值，又多了一个串
+
+          map[pre] ++;
+
+      }
+
+  
+
+      return count;
+
+    }
+
+};
+```
+
+  
+
 
