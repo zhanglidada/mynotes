@@ -1,0 +1,19 @@
+flowchart TD
+    A[按下机箱开机键<br>触发PWRBTN#信号] --> B
+    
+    subgraph B [第一棒: 主电源启动]
+        direction LR
+        B1[ATX电源提供<br>5VSB待机电压] --> B2[电源管理芯片<br>发出PS_ON#信号] --> B3[ATX电源所有<br>主电压轨输出]
+    end
+    
+    B --> C[主板各组供电模块按序建立<br>VRM为CPU提供稳定Vcore]
+    
+    C --> D{握手确认阶段}
+    
+    D --> E[ATX电源确认各路输出稳定<br>100-500ms延时]
+    E --> F[发出PWR_OK信号<br>宣告总电源正常]
+    F --> G[主板确认所有关键供电<br>CPU发出PROCPWRGD]
+    
+    G --> H[芯片组撤销<br>持续的RESET信号]
+    
+    H --> I[CPU硬件复位解除<br>从预设地址读取第一条指令]

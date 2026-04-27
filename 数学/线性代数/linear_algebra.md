@@ -6,7 +6,7 @@
 分别是物理专业学生的视角、计算机专业学生的视角以及数学家的视角
 
 物理专业：
-向量就是空间中的箭头，决定一个向量的是它的擦汗都和它所指的方向。
+向量就是空间中的箭头，决定一个向量的是它的操作和它所指的方向。
 
 计算机专业：
 向量是有序的数字列表
@@ -17,7 +17,7 @@
 
 
 **举例：**
-一个向量的坐标由一对数组成，这对数指导你如何从原点（向量起点）除法到达它的尖端（向量终点）。
+一个向量的坐标由一对数组成，这对数指导你如何从原点（向量起点）出发到达它的尖端（向量终点）。
 
 第一个数表示沿X 轴走多远，正数表示向右移动，负数表示向左移动。
 第二个数告诉你在此之后沿着平行 y 轴的方向走多远，正数表示向上移动，负数表示向下移动
@@ -33,7 +33,7 @@
 
 **向量的加法和乘法：**
 1）向量的加法
-<font color=red>我们将每个向量都看作一种特定的运动</font>，对应空间中朝着某个方向移动一定的距离。如果先按照第一个向量所描述的运动方式移动，然后再按照第二个向量所描述的运动方式移动，得到的总体效果与你沿着这两个向量的和向量对应的运动方向移动并无差异。
+<font color=red>我们将每个向量都看作一种特定的运动</font>，对应空间中朝着某个方向移动一定的距离。如果先按照第一个向量所描述的运动方式移动，然后再按照第二个向量所描述的运动方式移动，得到的总体效果与你沿着**这两个向量的和向量**对应的运动方向移动并无差异。
 
 
  2）向量的乘法
@@ -50,29 +50,29 @@
 # 2.线性组合，张成的空间与积
 数学需要的不是天赋，而是少量的自由想象，但想象太过自由又回陷入疯狂。  -- 安古斯
 
+
 **二维坐标系：**
-在二维坐标系中有两个非常特别的向量，一个指向正右方，长度为 1，通常被称为 $\hat{i}$ 或者 x 
-方向的单位向量；另一个指向正上方，长度为 1，通常被称为 $\hat{j}$ 或者y 方向的单位向量。
+在二维坐标系中有两个非常特别的向量，一个指向正右方，长度为 1，通常被称为 $\hat{i}$ 或者 x 方向的单位向量；另一个指向正上方，长度为 1，通常被称为 $\hat{j}$ 或者 y 方向的单位向量。
 
 这里$\hat{i}$ 和 $\hat{j}$ 被称为xy坐标系的**基向量**。
 
 现在想象向量(3，-2) 的 x 坐标是一个标量，它将 $\hat{i}$ 拉伸为原来的三倍，y 坐标也是一个标量，它先将 $\hat{j}$ 反向，再拉伸为原来的两倍。从这个角度去看，这个向量实际上是两个经过缩放的向量的和。
 
-每当我们用数字描述向量时，它都依赖于我们正在使用的基。
+**每当我们用数字描述向量时，它都依赖于我们正在使用的基。**
 
 <mark style="background: #FFB86CA6;">两个数乘向量的和被称为这两个向量的线性组合。</mark>
+
 如果固定其中一个标量，让另一个标量自由变化，所产生的向量的终点会描出一条直线。
+
 如果让两个标量同时自由变化，考虑所有可能得到的向量，有两种可能：
+
 1）大部分情况下，对于一对初始向量，你能到达平面中的每一个点
 2）当两个初始向量恰好共线时，所产生向量的终点被限制在一条过原点的直线上
-如果两个向量都是零向量的时，结果始终保持在原点
+3）如果两个向量都是零向量的时，结果始终保持在原点
 
+<mark style="background: #FF5582A6;">由给定向量的线性组合形成的所有的向量的集合，被称为给定向量张成的空间。</mark>对大部分二维向量来说，它们张成的空间是所有二维向量的集合。但是当它们共线时，它们张成的空间就是终点落在一条直线上的向量和集合。
 
-<mark style="background: #FF5582A6;">由给定向量的线性组合形成的所有的向量的集合，被称为给定向量张成的空间。</mark>
-
-对大部分二维向量来说，它们张成的空间是所有二维向量的集合。
-但是当它们共线时，它们张成的空间就是终点落在一条直线上的向量和集合。
-
+**tips:**
 两个向量张成的空间实际上表示仅通过向量加法与向量数乘这两种基础运算，你能获得的所有可能向量的集合是什么。
 
 
@@ -81,15 +81,14 @@
 
 用这种方法来看，如果你要考虑落在一条直线上的所有向量时，你只需要考虑直线本身就好了。 类似的，同时考虑所有二维向量时，将每个向量抽象为它的终点，这样就不用再考虑所有箭头了，只需要无限大的二维平面本身即可。
 
+**tips:**
 当你只考虑一个向量时，就把它看作箭头；当你考虑多个向量时，就把它们都看作点。
 
 
 **三维空间中的张成空间：**
 1）从三维空间中取两个指向不同方向的向量，它们张成的空间是什么？
 
-这两个向量张成的空间就是它们所有可能的线性组合，也就是两个向量缩放后再相加得到的终点的集合，<font color=#FF5582A6>是三维空间中某个经过原点的平面</font>，这个平面就是这两个向量张成的空间，
-
-所有终点落在这个平面上的向量的集合是这两个向量张成的空间
+这两个向量张成的空间就是它们所有可能的线性组合，也就是两个向量缩放后再相加得到的终点的集合，<font color=#FF5582A6>是三维空间中某个经过原点的平面</font>，这个平面就是这两个向量张成的空间，所有终点落在这个平面上的向量的集合是这两个向量张成的空间
 
 2）如果再加上第三个向量，它们张成的空间是什么样子
 
@@ -101,9 +100,257 @@ $\vec{u}$,$\vec{v}$,$\vec{w}$的线性组合: $a\vec{u} + b\vec{v} + c\vec{w}$
 - 如果第三个向量刚好落在前两个向量所张成的平面上，则它们张成的空间并不改变，还是原本的二维平面。此时引入的第三个向量并没有让原本的张成空间发生变化。
 - 如果第三个向量没有落在原本的二维平面上，此时我们就可以得到所有的三维向量。<mark style="background: #FFF3A3A6;">当你缩放第三个向量时，它将前两个向量张成的平面沿它的方向来回移动，从而扫过整个平面。</mark>
 
+
+
 # 3.矩阵与线性变换
 
+很遗憾，矩阵是什么是说不清的，你必须自己亲眼去看看。  -- 墨菲斯
+
+## 3.1线性变换
+
+变换本质上是函数的另一种 “花哨” 的说法，它接受输入内容并输出对应结果。既然变换和函数的意义相同，我们为什么还要使用变换而不是函数来表示呢？
+
+**因为变换暗示我们用可视化的方式来表达输入输出关系，即使用运动角度去思考矩阵的问题。**
+
+如何用数值描述线性变换：
+
+实际上，只需要记录两个基向量 i-hat 和 j-hat变换后的位置，其他向量都会随之变换。
+
+比如向量v = x*i + y*j（i，j是二维空间中的标准正交积向量），那么经过变换后的，Transformed v = x * (Transformed i) + y * (Transformed j)
+
+	也就是说，如果 向量 v 是 基向量i 和 基向量j  的一个特定线性组合，那么变换后的 向量v' 也是变换后的 i' 和变换后的 j' 同样的线性组合。
+
+**一个二维线性变换仅由四个数字完全确定，即变换后i的坐标以及变换后j的坐标**。通常我们将这些坐标包装在一个2 * 2 的格子中，称之为2 * 2的矩阵。
+
+之后我们每次看到一个矩阵，都可以把它理解为对空间的一种特定变换
+
+## 总结：
+
+线性变换是向量空间中表示加法和标量乘法运算的映射
+
+核心有两点：
+
+1）加法不变性：对任意向量 ​u​ 和 ​v，变换后满足 ​T(u + v) = T(u) + T(v)​
+
+2）数乘不变性：对任意标量 ​c​ 和向量 ​u，满足 ​T(c·u) = c·T(u)​
+
+线性变换的几何意义：
+
+线性变换不会让直线变成曲线，且线性变换后原点保持不动
+
+# 4.矩阵乘法与线性变换符复合
+
+据我的经验，如果丢掉矩阵的话，那些涉及矩阵的证明可以缩短一半。  -- 埃米尔·阿廷
+
+## 4.1知识点回顾：
+
+严格意义上来说，线性变换是将向量作为输入和输出的一类函数。上一节说过，可以将线性变换看作对空间的挤压延伸，它保持网格线平行且等距分布，且原点不变。
+
+最关键的一点，线性变换由它对空间的基向量的作用完全决定，**因为空间中的任意向量都可以表示为基向量的线性组合**。
+
+==习惯上，我们将变换后的基向量的坐标表示为矩阵中的一列。==
+
+==可以将矩阵看作一个特定的线性变换，而矩阵与向量相乘就可以理解为将线性变换作用于那个向量。==
+
+## 4.2本节内容：
+
+两个矩阵相乘有对应的几何含义，就是两个线性变换在一个向量上的相继作用。需要注意的是，**矩阵的乘积需要先应用右侧的矩阵，再应用左侧的矩阵，即从右向左计算**。这种计算方式起源于函数的记号，因为我们将函数写在变量的左侧，所以在将函数复合的时候，总是需要从右向左读。
 
 
+矩阵相乘时，他们的先后顺序会影响结果么？乘积的顺序显然会影响最终结果。
+
+1）矩阵乘法的本质实际上是线性变换的组合，每个矩阵对应一个几何操作（旋转、缩放、剪切），而矩阵相乘的顺序决定了这些操作的执行顺序。
+
+2）**将矩阵乘法看作对空间的变换，乘法的顺序决定了对空间的变换顺序**。如果我们先将一个矩阵旋转，再将矩阵偏移，结果和先偏移再旋转得到的结果明显不同。
+
+比如存在一个剪切操作，它保持 i hat 不变，但是将 j hat 挤压到右边。以及一个逆时针 旋转90 度的操作。
+那么如果我们先做剪切操作，此时 jhat 会靠近 ihat；之后做旋转，ihat 到了原本 jhat 的位置，而 jhat 则在 ihat 的左边一点位置，他们彼此靠的很近
+如果我们先做旋转，ihat 和 jhat 位置先互相交换；然后我们做剪切操作，此时 ihat 会向右上角方向变换而 jhat 固定不变，他们的分隔就变远了
+
+对于矩阵的乘法结合率，如果使用相继变换的思想去考虑，发现这个性质很容易理解
+
+# 5.三维空间中的线性变换
+
+
+三维空间中的线性变换类似于二维空间，只是多了一个z轴上的基向量k。
+
+
+
+# 6.行列式
+
+计算的意义不在于数字本身，而在于洞察其背后的含义。   --理查德 哈明
+
+因为线性变换可以看作是对空间的拉伸或压缩操作，那么这就等同于对一个给定面积增大或缩小的比例。
+
+需要注意的是，无论对i和j如何进行变换，网格线仍然保持平行且等距分布。
+
+如果一个二维矩阵的行列式值为3，表示此矩阵将一个区域的面积变成原来的三倍；如果行列式的值为0.5，表示一个区域变换后面积变为原来的一半。
+
+如果一个二维矩阵的行列式值为0，表示将整个平面压缩成一条直线或者一个点。（降维，此时某些维度信息会丢失，无法再通过其它方式重新找回维度信息）
+
+如果一个行列式的值为负数，此时就和定向的概念有关，即改变了空间的定向（类似于二维空间的翻转）。所以当空间定向发生改变时，行列式值为负数。但是行列式的绝对值仍然表示区域面积的缩放比例。
+
+扩展到三维空间中，行列式的值就是空间中体积的缩放比例。同理，三维空间中行列式的负值表示的也是空间定向的改变，不过是从右手法则变成了左手法则。
+
+行列式的计算公式：可以想象成二维空间中的平行四边形计算面积
+
+
+![[Pasted image 20260418085032.png]]
+
+
+最后，如果将两个矩阵相乘，它们乘机的行列式为什么等于它们行列式的乘积？
+
+因为面积的变换是相互独立的，当前面积的缩放并不影响之前和之后面积的缩放
+
+
+
+# 7.逆矩阵、列空间与零空间
+
+提出正确的问题比回答它更困难。  --格奥尔格 康托尔
+
+线性代数最主要的用途就是求解特定的方程组：
+
+方程组就是一系列未知量以及一系列与之相关的方程。在每一个方程中，所有的未知量只有常系数，这些未知量之间只进行加和，即没有幂次、没有奇怪的函数、没有未知量之间的乘机等。在整理方程组的时候，可以将未知量放在等号的左边，剩余常数量放在等号的右边，同时将同一个未知量竖直对齐。如果一个方程中的未知量不存在，可以将对应的系数补零。
+
+这种方法和矩阵的向量乘法非常类似，所以可以将所有的方程合并为一个向量方程，这个方程由一个包含所有常量系数的矩阵、一个包含所有未知量的向量以及它们乘积得到的常数向量。我们将常量矩阵称为A，包含未知量的向量称为X，右侧的常数向量称为V。所以A*X = V。
+
+因为A代表一种线性变换，所以要求解A*X = V，表示我们需要去寻找一个向量X，X在经过线性变换后和向量V重合。
+
+在进行逆向变换时，逆向变换实际上对应了另一个线性变换，称为A的逆，记为A^(-1)。假如A为逆时针旋转90度，那么A^(-1)就是顺时针旋转90度。总之，在一个向量在经过A变换后再进行A^(-1)变换，它总是会回到原始状态，A*A^(-1) 就是一个恒等矩阵，什么也不做。
+
+一旦找到了逆矩阵，就可以在矩阵两边同乘A的逆矩阵来求解向量方程：
+
+A^(-1)  * A * X = A^(-1) * V
+
+这个过程在几何上就对应于逆向进行变换并跟踪 V 的动向。
+
+只要变换 A 不将空间压缩到一个更低的维度上，也就是说只要 A 的行列式不为 0（det(A) ≠ 0），那么它就存在逆变换 A^(-1)，使得应用 A 变换后再应用 A^(-1)变换，结果和恒等变换一样。
+
+但是当行列式的值为 0 时（det(A) = 0），这个矩阵的变换会将空间压缩到更低的维度，此时没有逆变换，因为高维空间被压缩到低维空间后永久丢失了被压缩的那一维度的信息。虽然此时不存在逆变换，但是解仍可能存在，比如你将一个空间压缩成一条直线，如果足够幸运的话 V 可能正好处于这条直线上，此时解存在。
+
+当变换的结果为一条直线时，也就是说结果此时是一维的，我们就说这个变换的秩为 1；如果变换后的结果落在某个二维平面上，那么我们就说这个变换的秩为 2。所以说矩阵的秩代表着变换后空间的维度。
+
+不管是一条直线，一个平面或者三维空间，所有可能的矩阵变换结果的集合，被称为矩阵的列空间。因为矩阵的列告诉我们基向量变换后的位置，这些变换后的基向量张成的空间就是所有可能的变换结果。换句话说列空间就是矩阵的列所张成的空间。
+
+更精确的秩的定义就是矩阵列空间的维数。当秩达到最大值时，意味着秩与列数相同，此时成为满秩。
+
+需要注意的是零向量一定会被包含在列空间中，因为线性变换必须保持原点位置不变。对于一个满秩变换来说，变换后还能落在原点的只有零向量自身。
+
+但是对于非满秩的矩阵，变换后空间维度降低，也就说说会有一系列向量会在变换后变成零向量。
+
+变换后落在原点的向量的集合被称为矩阵的“零空间”或者“核”
+
+# 8.非方阵
+
+非方阵之间的变换在几何上实际具有不同的含义，比如将一个二维的输入向量变成一个三维的输出向量，他们实际上是完全不同的东西，它们完全生活在不同的空间中。
+
+用矩阵代表这样一个变换则和之前的方法完全相同，找到每一个基向量变换后的位置，然后把变换后基向量的坐标作为矩阵的列。比如一个 3*2 的矩阵((2,0),(-1,1),(-2,1))，这个变换将 i 变换到坐标(2, -1, -2)，j 变换到坐标(0, 1, 1)。这是一个 3*2 的矩阵，这个矩阵的列空间是三维空间中一个过原点的二维平面，但这个矩阵仍然是满秩的，因为列空间的维数与输入空间的维数相同。
+
+一个 3*2 矩阵的几何意义是将二维空间映射到三维空间上。因为矩阵有两列表示输入空间有两个基向量，有三行表明每一个基向量在变换后都用三个独立的坐标进行表示。
+
+类似的，一个 2 * 3 的矩阵，矩阵有三列表示原始空间有三个基向量，即原始空间是三维的。有两行表示三个基向量在变换后都仅用两个坐标进行描述，所以变换后落在二维空间中，即这是一个从三维空间到二维空间的变换。
+
+# 9.点积与对偶性
+
+如果有两个维数相同的向量，求它们的点积就是将相应的坐标配对，求出每一对坐标的乘积并将结果相加。
+
+点积的几何解释：
+
+如果存在两个向量 v，w，求 v * w 的点积，可以理解为有一条过原点和向量 v 的直线，向量 w 朝着这条直线进行投影，将投影的长度和向量 v 的长度相乘就得到了它们的点积 v*w。
+
+![[Pasted image 20260418085133.png]]
+
+点积的结果：
+
+1）如果 w 和 v 的方向相反，点积的结果为负数
+
+2）如果两个向量的指向大致相同时，点积为正数
+
+3）如果两个向量的方向垂直，此时一个向量在另一个向量上的投影为零向量，它们的点积为 0
+
+点积与顺序无关，也可以将 v 投影到 w 所在的直线上，将 v 的投影长度与 w 的长度相乘并得到相同的结果。
+
+直观上说明为什么点积与顺序无关：
+
+如果 w 和 v 的长度恰好相同，我们可以利用其中的对称性。此时 w 向 v 上投影得到的投影长度乘 v，与 v 向 w 上投影得到的投影长度乘 w 互为镜像。
+
+但是如果将 v 的长度放大到原本的两倍，此时 2v 和 w 的长度不同，对称性被破坏。
+
+![[Pasted image 20260418085148.png]]
+
+
+但是 w 向 v 上投影，此时 w*2v =2（w*v）
+
+如果 v 向 w 上投影，此时 2v*w = 2（v*w）
+
+因为将 v 放大两倍并不改变 w 投影时的长度，而v 向 w 投影时候虽然投影长度变为原来的两倍，但是 w 的长度没变。所以总体效果仍然是点击变为原来的两倍。
+
+所以说虽然此时向量的缩放将对称性破坏了，但是缩放向量对点积结果的影响还是相同的
+
+为什么点积的运算和投影有联系？
+
+更深层次的原因其实是对偶性
+
+多维空间到一维空间（数轴）的线性变换：
+
+有不少函数能够接收二维向量并输出一个数：
+
+同样是二维输入和一维输出，和一般的函数相比，线性变化的要求更严格一些。
+
+高维空间中的变换需要满足一些严格的性质才会具有线性，为了方便理解我们先关注于一种与之等价的直观特性：
+
+如果有一系列等距分布于一条直线上的点，然后应用变换线性变换会保持这些点等距分布在输出空间中，也就是数轴上。否则，如果这些点没有等距分布，那么这个变换就不是线性的。同之前理解的那样，这些线性变换完全由它对 i 和 j 的变换决定，但是在这次变换中，这些基向量都只落到一个数上。所以当我们将其变换后的位置记录为矩阵的列时，矩阵的每列只是一个单独的数。
+
+举例：
+
+假设有一个线性变换，它将 I 和 j 分别变换到-1 和 2。这时有一个    的向量，将这个向量分解为 4 * I + 3 * j![](data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAwEAAAAfCAIAAAAwSVY0AAAAAXNSR0IArs4c6QAAAHhlWElmTU0AKgAAAAgABQESAAMAAAABAAEAAAEaAAUAAAABAAAASgEbAAUAAAABAAAAUgEoAAMAAAABAAIAAIdpAAQAAAABAAAAWgAAAAAAAABgAAAAAQAAAGAAAAABAAKgAgAEAAAAAQAAAwGgAwAEAAAAAQAAAB8AAAAA/3jqawAAAAlwSFlzAAAOxAAADsQBlSsOGwAAI/1JREFUeAHt3XXYdUXVBvAPRFFRsUWxFbEwsFAMsMXE7lYEAxVRELELxAAVA5tQsBMUuxsMsBUFA8UEBBTw+/ktr3XNN3ufffY5Tx1e5/xx3tmzJ9esude91sx53vX+9a9//U/7NAk0CTQJNAk0CTQJNAn8l0lg/f+y+bbpNgk0CTQJNAk0CTQJNAn8WwKNAzU9aBJoEmgSmEcC97nPfa5+9avPU7PVaRJoElgMCTQOtBjr0EbRJNAkcI6SwLvf/e73vOc97S7BOWrR2mCbBGoJrNf2cC2S9twk0CTQJDAogT/84Q/Xve51t9xyy5/85Cc/+tGPBsu2l00CTQKLK4HGgRZ3bdrImgSaBBZTAve73/0uf/nLr7feeh/84AcbB1rMNWqjahIYI4F2FjZGSq1Mk0CTQJPAfyTwvve97+tf//rznve8s846qwmlSaBJ4BwtgVEc6Mc//vFRRx21cvP8y1/+cuCBB/75z39eiS7++c9/nn766QMt8+ROPvnkLPCxj31MfBu6/fKXv8zMSHz+85//+c9/XmV+8pOfFBivMqvHI4888o9//GOVmY/f+MY3fvrTn+bjb3/723e84x1kkjnLkvjc5z73q1/9aqCpr33ta3/961+zwOGHH/63v/0tHxcn4fT297//fYzHpE444YQ5xvaZz3yGnLsV//73v9OHbn7k0KWPf/zjp512Whb4whe+QGHycabEEUccQeYzVVm0wmeeeebZZ59djsrqfOQjHyHGMnNq+pRTTpmEAGsLDt2R28g77bTT/vvvf/7znz/eAoq3vvWt3ZJVznHHHVeh6Fe/+lWZVbHqUZkuEFVlVuhxJCAsRQemgnNObSXkwOIYgC7s6Pe///3ZV5lgGiC8OZaZk9IlYNrdsGJSyZa/OBIYdRb28Ic/3M6//e1v/7vf/S6GvvnmmzOoSR2ciwsOe/XoRz/6+te//uMf//go9uAHP/gf//hHzlbo+NBDD83HTACUJz3pSb/4xS8ud7nLZeayJI4//vgb3ehGYNRoL3nJS3bbtLVuetObfuhDH7rrXe8ab694xSvuuOOOV7rSlR7xiEe88pWvfOxjH5u1rnOd6zzsYQ/bZZdd5Hz3u98997nPfY1rXONCF7rQ61//+gc+8IFZrEogFlq7173udcABB1Sv4nHbbbe9+c1v/oIXvMAjE3LHO97xe9/7Hh620UYb9ZafI/OMM8648pWvbNU+9alPWYVuCza56XziE5+43e1u5+2znvWsF73oRQZsQbuFM4dWHH300de73vUudrGLZaYEE/iDH/zgmGOO+f73v+/7hz/84Ve+8pVe+Ze1pCnY4x73uCc84Qm3ve1tq1f5uO++++6xxx7a3GSTTfwq52pXu1rFQk488cRXvOIVWT4Sd7jDHW5961tn5gYbbPDmN7/ZamZOJN773vfe+973TjlUb0866aRLXOISln6LLbbwinFyKUT5N73pTVVJmtPLYm95y1ve5ja3icJbb7216pS/qls+wmirQDl7t8bcco4uGDlzOd/5zkf9qH3Z75g09nOTm9xku+22ExHJ8n/605+ucIUr7Lzzzi984QszMxLl1cNKCe19+kmXCKSqtYbgUI0kHu3T5zznOde85jU9UlcYiAzd9773fcMb3tBbPjN32GGHD3zgAxDpPOc5j0zSc5pGGd7+9rdnmW7Cnr32ta9NLbuvIgf40ORJb9/4xjcC5ElvB/JHAsKsOlD2OBWcy8LLLgcjB7zWgoNqI7ACxAjzy06ln/jEJ6JHP/vZzzbccEOP7BdyU5WxBN7yqZgDsBnmD5Be8IIXFDKsCg8/fvazn73whS8MUXuLwR+Ius022/S+9UqBSW97q0zKNBfuJWQAm+c973knFRsez9Of/nR1n//850+qviD5G4wZBy155jOf+brXve7iF7+45fnmN78JrW584xsHO+YKE1lwIHOmNIw32qTld77znXe+852hmzSYQzWCA/F+StF8+tOfVhGydAdz1ateVdfd/DE52P32229/6qmnUtB73OMeXP/Q47LuS17ykq222ioJkFcGjzEANQvMGG+22Wa2Slkl0rvttpvpM5bdV0xCZf823XRTZvICF7hAWZiGvfjFLy5zpF/zmtdoc/31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)
+
+存在一个线性变换，将
+
+对偶性指的是两种数事物之间自然而又出乎意料的对应关系
+
+线性代数不应该看作是空间中的箭头，而是应该看作线性变换的物质载体
+
+
+
+# 10.叉积的标准介绍
+
+# 11.以线性变换的眼光看叉积
+
+# 12.基变换
+
+# 13.特征向量与特征值
+
+# 14.抽象向量空间
+
+# 15.克莱姆法则，几何解释
+
+
+
+# 一些附加信息：
+1.关于二维和三维空间中的标准正交基
+
+在向量空间中，i-hat 和 j-hat 是标准正交基向量的常见表示，尤其在二维欧几里得空间（ℝ²）中：
+
+i-hat (î)：沿 x 轴方向的单位向量，记作 (1, 0)。
+
+j-hat (ĵ)：沿 y 轴方向的单位向量，记作 (0, 1)。
+
+关键特性：
+
+1）正交性：î 和 ĵ 互相垂直（点积为 0）。
+
+2）单位长度：两者的模均为 1，因此是标准正交基。
+
+3）线性组合：任何二维向量均可表示为它们的线性组合。
+
+ 例如，向量 (3, 4) = 3î + 4ĵ。
+
+扩展到三维空间：
+
+在三维空间（ℝ³）中，增加 k-hat (k̂) 作为 z 轴方向的单位向量 (0, 0, 1)，形成标准基 {î, ĵ, k̂}。
+
+
+2.附注 1：三维空间中的线性变换
 
 
