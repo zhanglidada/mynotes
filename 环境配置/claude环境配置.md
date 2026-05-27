@@ -119,6 +119,8 @@ curl -I https://www.google.com
 
 
 
+
+
 # 二、mac下配置claude code
 
 mac 下先用brew 安装最新的node

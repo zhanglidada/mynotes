@@ -1,7 +1,5 @@
 1.brew 安装方式：
 
-
-
 2.brew 安装python环境
 
 注意：3.13版本好像有问题，后面brew安装的是python3.9版本
