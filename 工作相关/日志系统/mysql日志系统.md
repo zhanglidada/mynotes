@@ -1,5 +1,5 @@
 
-这里主要整理一下mysql的redo 和undo，稍微涉及一点binlog
+这里主要整理一下mysql的redo 和undo，稍微涉及一点 binlog
 
 数据库中事物最重要的就是ACID特性
 
