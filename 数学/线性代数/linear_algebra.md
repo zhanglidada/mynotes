@@ -511,7 +511,12 @@ https://www.cnblogs.com/zzdyyy/p/7643267.html
 
 ![[Pasted image 20260705160434.png|505]]
 
+特征向量，就是一个线性变换中**方向不变的特殊向量**。
+
 这里A表示某个变换的矩阵，也就是说，矩阵和向量的乘积  $A\cdot \vec{V}$ 等于 $\lambda \cdot \vec{V}$。
+用矩阵 A 去作用向量 v，效果等于纯粹把 v 拉长 λ 倍
+
+
 
 # 14.抽象向量空间
 
