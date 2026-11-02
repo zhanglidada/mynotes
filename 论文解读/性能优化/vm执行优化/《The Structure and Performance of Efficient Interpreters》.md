@@ -1,9 +1,9 @@
 **论文解读**
 
+
 解释器最大的性能瓶颈在于间接分支预测失败的代价
 
 解释器每执行一条字节码，就要执行一次间接分支完成指令分发
-
 
 
 1.引言
@@ -24,14 +24,16 @@
 
 
 
+
+- threaded code：每个 VM handler 末尾有自己的间接跳转点，BTB 可以按不同分支 PC 区分，预测好一些；
+    
+- switch dispatch：所有 opcode 共用一个间接跳转点，BTB 只看到同一个分支 PC，很难区分 opcode，预测差很多。
+
+
+
 # 前置知识点：
 
 1.CPU 流水线、**间接分支 vs 直接分支**；BTB（分支目标缓冲）、分支预测错误代价`mispredict penalty`；返回地址栈 RAS（函数返回不计入本文统计的间接分支）。
+[[论文解读/CPU相关/CPU指令]]
 
-2.虚拟机解释器**dispatch 分发**概念；看懂两种分发 C 伪代码（图 1 computed‑goto，图 2 switch）；大致看懂 MIPS 汇编图 3、图 4。
-
-3.明白一个关键坑：SimpleScalar 模拟器术语和传统架构术语不一致：
-
-> SimpleScalar 内部叫`1 cycle mispredict penalty` = 传统架构说法 **4 cycles**；
-> 
-> SimpleScalar `10 cycles` = 传统 **13 cycles**。论文反复强调这点，读第 5 章不要混淆数字。
+2.
